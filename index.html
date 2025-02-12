@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MikuMiku</title>
+    <link rel="icon" href="Assets/icon.png">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+<!--! Shop -->
+        <div class="menu" id="shop">
+            <div id="map">
+<!-- UPGRADE BONUS GOLD -->
+                <div class="tile" id="upgrade-bonus-gold-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_bonus_gold.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Bonus Gold</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-bonus-gold-stat-display">Current: 1 (+1)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-bonus-gold-price-display">Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusGoldDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE MULTIPLY GOLD -->
+                <div class="tile" id="upgrade-multiply-gold-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_multiply_gold.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Gold Multiplier</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-multiply-gold-stat-display">Current: 100% (+10%)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-multiply-gold-price-display">Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeMultiplyGoldDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE BONUS APPLES -->
+                <div class="tile" id="upgrade-bonus-apples-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_bonus_apples.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Bonus Apples</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p>Current: 1 (+1)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p>Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeBonusApples()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusApplesDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE GAPPLE CHANCE -->
+                <div class="tile" id="upgrade-gapple-chance-tile">
+                    <div class="tile-image">
+                        <img src="Assets/gapple.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Golden Apple Chance</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p>Current: 0% (+10%)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p>Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeGappleChance()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeGappleChanceDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE BONUS GEMS -->
+                <div class="tile" id="upgrade-bonus-gems-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_bonus_gem.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Bonus Gems</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p>Current: 1 (+1)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p>Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeBonusGems()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusGemsDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE MULTIPLY GEM -->
+                <div class="tile" id="upgrade-multiply-gem-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_multiply_gem.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Gem Multiplayer</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p>Current: 100% (+10%)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p>Price: 0</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeMultiplyGem()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeMultiplyGemDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--SIDE BAR-->
+            <div class="right-side">
+                <div class="default-right-side">
+                    <div class="right-side-content currency-container">
+                        <div>
+                            <img src="Assets/gold.png" draggable="false">
+                            <p id="shop-gold-display">0</p>
+                        </div>
+                        <div>
+                            <img src="Assets/gem.png" draggable="false">
+                            <p id="shop-gem-display">0</p>
+                        </div>
+                    </div>
+
+                    <div class="right-side-content" id="shop-mode">
+                        <div id="shop-mode-title">
+                            <p>Shop Category</p>
+                        </div>
+                        <div id="shop-mode-content">
+                            <div class="shop-mode-side">
+                                <button onclick="previousShopMode()"><</button>
+                            </div>
+                            <div id="shop-mode-icon">
+                                <img id="gold-shop-icon" src="Assets/gold.png" draggable="false">
+                                <img id="other-shop-icon" src="Assets/apple.png" draggable="false">
+                                <img id="gem-shop-icon" src="Assets/gem.png" draggable="false">
+                            </div>
+                            <div class="shop-mode-side">
+                                <button onclick="nextShopMode()">></button>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="right-side-content day-container">
+                        <div>
+                            <p id="shop-day-display">Day 1</p>
+                        </div>
+                        <div>
+                            <button onclick="beginDay()">Begin Day</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+<!--! Day -->
+        <div class="menu" id="day" style="display: none">
+            <div id="snake-map">
+                <canvas id="snake"></canvas>
+            </div>
+            <div class="right-side">
+                <div class="default-right-side">
+                    <div class="currency-container">
+                        <div>
+                            <img src="Assets/gold.png" draggable="false">
+                            <p id="day-gold-display">0</p>
+                        </div>
+                        <div>
+                            <img src="Assets/gem.png" draggable="false">
+                            <p id="day-gem-display">0</p>
+                        </div>
+                    </div>
+    
+                    <div class="day-container">
+                        <div>
+                            <p id="day-day-display">Day 1</p>
+                        </div>
+                        <div>
+                            <button onclick="nextDay()">Next Day</button>
+                        </div>
+                    </div>
+    
+                    <div class="currency-container" id="earned-currency-container">
+                        <div>
+                            <img src="Assets/earned_gold.png" draggable="false">
+                            <p id="earned-gold-display">0</p>
+                        </div>
+                        <div>
+                            <img src="Assets/earned_gem.png" draggable="false">
+                            <p id="earned-gem-display">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+</body>
+</html>

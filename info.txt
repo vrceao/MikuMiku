@@ -1,0 +1,32 @@
+=== === === [ Information ]
+
+This is basically just a game of snake where you collect apples.
+After you die, the day increases and you can visit the shop.
+In the shop, you can buy different upgrades for your snake.
+The game ends when you buy all the upgrades or just get bored.
+
+=== === === [ The Day ]
+
+Grid Size: 10x10.
+Snake speed is 1 tile per second by default
+Each apple gives 1 gold by default.
+Apple spawns after you eat the current apple.
+
+Golden apples give double the gold and 1 gem by default.
+
+=== === === [ Shop ]
+
+Currencies:
+- Gold
+- Gems
+
+== == Snake Speed (*1.1, *1.2, *1.3...)
+
+== == Bonus Gold (+1, +2, +3...)
+== == Gold Multiplayer (*1.1, *1.2, *1.3...)
+
+== == Bonus Apples (+1, +2, +3...)
+== == Golden Apple Chance (10%, 20%, 30%...)
+
+== == Bonus Gems (+1, +2, +3...)
+== == Gem Multiplayer (*1.1, *1.2, *1.3...)
