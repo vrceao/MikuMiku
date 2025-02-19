@@ -31,7 +31,7 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p id="upgrade-bonus-gold-stat-display">Current: 1 (+1)</p>
+                                <p id="upgrade-bonus-gold-stat-display">Current: 1.00 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
                                 <p id="upgrade-bonus-gold-price-display">Price: 0</p>
@@ -55,10 +55,10 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p id="upgrade-multiply-gold-stat-display">Current: 100% (+10%)</p>
+                                <p id="upgrade-multiply-gold-stat-display">Current: x1.00 (+10%)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-multiply-gold-price-display">Price: 0</p>
+                                <p id="upgrade-multiply-gold-price-display">Price: 18.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -68,8 +68,32 @@
                         </div>
                     </div>
                 </div>
+<!-- UPGRADE TIME -->
+                <div class="tile" id="upgrade-time-tile">
+                    <div class="tile-image">
+                        <img src="Assets/upgrade_time.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Time</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-time-stat-display">Current: 10s (+2s)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-time-price-display">Price: 8.00</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeTime()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeTimeDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 <!-- UPGRADE BONUS APPLES -->
-                <div class="tile" id="upgrade-bonus-apples-tile">
+                <div class="tile" id="upgrade-bonus-apples-tile" style="opacity: 10%;">
                     <div class="tile-image">
                         <img src="Assets/upgrade_bonus_apples.png" draggable="false">
                     </div>
@@ -79,10 +103,10 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p>Current: 1 (+1)</p>
+                                <p id="upgrade-bonus-apples-stat-display">Current: 1 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p>Price: 0</p>
+                                <p id="upgrade-bonus-apples-price-display">Price: 30.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -93,7 +117,7 @@
                     </div>
                 </div>
 <!-- UPGRADE GAPPLE CHANCE -->
-                <div class="tile" id="upgrade-gapple-chance-tile">
+                <div class="tile" id="upgrade-gapple-chance-tile" style="opacity: 10%;">
                     <div class="tile-image">
                         <img src="Assets/gapple.png" draggable="false">
                     </div>
@@ -103,10 +127,10 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p>Current: 0% (+10%)</p>
+                                <p id="upgrade-gapple-chance-stat-display">Current: 0% (+10%)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p>Price: 0</p>
+                                <p id="upgrade-gapple-chance-price-display">Price: 25.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -117,7 +141,7 @@
                     </div>
                 </div>
 <!-- UPGRADE BONUS GEMS -->
-                <div class="tile" id="upgrade-bonus-gems-tile">
+                <div class="tile" id="upgrade-bonus-gems-tile" style="opacity: 10%;">
                     <div class="tile-image">
                         <img src="Assets/upgrade_bonus_gem.png" draggable="false">
                     </div>
@@ -127,10 +151,10 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p>Current: 1 (+1)</p>
+                                <p id="upgrade-bonus-gems-stat-display">Current: 1 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p>Price: 0</p>
+                                <p id="upgrade-bonus-gems-price-display">Price: 24.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -141,7 +165,7 @@
                     </div>
                 </div>
 <!-- UPGRADE MULTIPLY GEM -->
-                <div class="tile" id="upgrade-multiply-gem-tile">
+                <div class="tile" id="upgrade-multiply-gem-tile" style="opacity: 10%;">
                     <div class="tile-image">
                         <img src="Assets/upgrade_multiply_gem.png" draggable="false">
                     </div>
@@ -151,10 +175,10 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p>Current: 100% (+10%)</p>
+                                <p id="upgrade-multiply-gem-stat-display">Current: x1.00 (+10%)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p>Price: 0</p>
+                                <p id="upgrade-multiply-gem-price-display">Price: 36.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -165,17 +189,17 @@
                     </div>
                 </div>
             </div>
-<!--SIDE BAR-->
+<!-- SIDE BAR -->
             <div class="right-side">
                 <div class="default-right-side">
                     <div class="right-side-content currency-container">
                         <div>
                             <img src="Assets/gold.png" draggable="false">
-                            <p id="shop-gold-display">0</p>
+                            <p id="shop-gold-display">0.00</p>
                         </div>
                         <div>
                             <img src="Assets/gem.png" draggable="false">
-                            <p id="shop-gem-display">0</p>
+                            <p id="shop-gem-display">0.00</p>
                         </div>
                     </div>
 
@@ -215,19 +239,29 @@
             <div id="snake-map">
                 <canvas id="snake"></canvas>
             </div>
+<!-- SIDE BAR -->
             <div class="right-side">
                 <div class="default-right-side">
                     <div class="currency-container">
                         <div>
                             <img src="Assets/gold.png" draggable="false">
-                            <p id="day-gold-display">0</p>
+                            <p id="day-gold-display">0.00</p>
                         </div>
                         <div>
                             <img src="Assets/gem.png" draggable="false">
-                            <p id="day-gem-display">0</p>
+                            <p id="day-gem-display">0.00</p>
                         </div>
                     </div>
-    
+
+                    <div class="time-container">
+                        <div>
+                            <p>Time left</p>
+                        </div>
+                        <div>
+                            <p id="time-left-display">00:00</p>
+                        </div>
+                    </div>
+
                     <div class="day-container">
                         <div>
                             <p id="day-day-display">Day 1</p>
@@ -236,7 +270,7 @@
                             <button onclick="nextDay()">Next Day</button>
                         </div>
                     </div>
-    
+
                     <div class="currency-container" id="earned-currency-container">
                         <div>
                             <img src="Assets/earned_gold.png" draggable="false">
@@ -248,7 +282,6 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>

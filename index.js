@@ -1,19 +1,43 @@
 //! Update Displays
+onload = function() {
+    changeShopGold();
+    updateDisplays();
+};
+
 function updateDisplays() {
-    shopGoldDisplay.textContent = gold.toFixed(2);
-    shopGemDisplay.textContent = gem.toFixed(2);
-    dayGoldDisplay.textContent = gold.toFixed(2);
-    dayGemDisplay.textContent = gem.toFixed(2);
-    earnedGoldDisplay.textContent = earnedGold.toFixed(2);
-    earnedGemDisplay.textContent = earnedGem.toFixed(2);
+    // Day displays
+    if (dayDisplay.style.display == "flex") {
+        dayGoldDisplay.textContent = gold.toFixed(2);
+        dayGemDisplay.textContent = gem.toFixed(2);
+        earnedGoldDisplay.textContent = earnedGold.toFixed(2);
+        earnedGemDisplay.textContent = earnedGem.toFixed(2);
 
-    shopDayDisplay.textContent = "Day " + day;
-    dayDayDisplay.textContent = "Day " + day;
+        dayDayDisplay.textContent = "Day " + day;
+    }
+    // Shop Displays
+    else if (shopDisplay.style.display == "flex") {
+        shopGoldDisplay.textContent = gold.toFixed(2);
+        shopGemDisplay.textContent = gem.toFixed(2);
 
-    upgradeBonusGoldStatDisplay.textContent = "Current: " + bonusGoldLevel.toFixed(2) + " (+1)";
-    upgradeBonusGoldPriceDisplay.textContent = "Price: " + bonusGoldUpgradePrice.toFixed(2);
-    upgradeMultiplyGoldStatDisplay.textContent = "Current: x" + multiplyGoldValue.toFixed(2) + " (+10%)";
-    upgradeMultiplyGoldPriceDisplay.textContent = "Price: " + multiplyGoldUpgradePrice.toFixed(2);
+        shopDayDisplay.textContent = "Day " + day;
+
+        upgradeBonusGoldStatDisplay.textContent = "Current: " + bonusGoldLevel.toFixed(2) + " (+1)";
+        upgradeBonusGoldPriceDisplay.textContent = "Price: " + bonusGoldUpgradePrice.toFixed(2);
+        upgradeMultiplyGoldStatDisplay.textContent = "Current: x" + multiplyGoldValue.toFixed(2) + " (+10%)";
+        upgradeMultiplyGoldPriceDisplay.textContent = "Price: " + multiplyGoldUpgradePrice.toFixed(2);
+
+        upgradeTimeStatDisplay.textContent = "Current: " + timeValue.toFixed(0) + " (+2s)";
+        upgradeTimePriceDisplay.textContent = "Price: " + timeUpgradePrice.toFixed(2);
+        upgradeBonusApplesStatDisplay.textContent = "Current: " + bonusApplesValue.toFixed(0) + " (+1s)";
+        upgradeBonusApplesPriceDisplay.textContent = "Price: " + bonusApplesUpgradePrice.toFixed(2);
+        upgradeGappleChanceStatDisplay.textContent = "Current: " + gappleChanceValue.toFixed(0) + "% (+10%)";
+        upgradeGappleChancePriceDisplay.textContent = "Price: " + gappleChanceUpgradePrice.toFixed(2);
+
+        upgradeBonusGemsStatDisplay.textContent = "Current: " + bonusGemsLevel.toFixed(2) + " (+1)";
+        upgradeBonusGemsPriceDisplay.textContent = "Price: " + bonusGemsUpgradePrice.toFixed(2);
+        upgradeMultiplyGemStatDisplay.textContent = "Current: x" + multiplyGemValue.toFixed(2) + " (+10%)";
+        upgradeMultiplyGemPriceDisplay.textContent = "Price: " + multiplyGemUpgradePrice.toFixed(2);
+    }
 }
 
 //! Variables
@@ -26,6 +50,7 @@ const gemShopIcon = document.getElementById("gem-shop-icon");
 // Shop Upgrade Tiles Display
 const upgradeBonusGoldTile = document.getElementById("upgrade-bonus-gold-tile");
 const upgradeMultiplyGoldTile = document.getElementById("upgrade-multiply-gold-tile");
+const upgradeTimeTile = document.getElementById("upgrade-time-tile");
 const upgradeBonusApplesTile = document.getElementById("upgrade-bonus-apples-tile");
 const upgradeGappleChanceTile = document.getElementById("upgrade-gapple-chance-tile");
 const upgradeBonusGemsTile = document.getElementById("upgrade-bonus-gems-tile");
@@ -39,6 +64,18 @@ const upgradeBonusGoldPriceDisplay = document.getElementById("upgrade-bonus-gold
 const upgradeBonusGoldStatDisplay = document.getElementById("upgrade-bonus-gold-stat-display");
 const upgradeMultiplyGoldPriceDisplay = document.getElementById("upgrade-multiply-gold-price-display");
 const upgradeMultiplyGoldStatDisplay = document.getElementById("upgrade-multiply-gold-stat-display");
+
+const upgradeTimePriceDisplay = document.getElementById("upgrade-time-price-display");
+const upgradeTimeStatDisplay = document.getElementById("upgrade-time-stat-display");
+const upgradeBonusApplesPriceDisplay = document.getElementById("upgrade-bonus-apples-price-display");
+const upgradeBonusApplesStatDisplay = document.getElementById("upgrade-bonus-apples-stat-display");
+const upgradeGappleChancePriceDisplay = document.getElementById("upgrade-gapple-chance-price-display");
+const upgradeGappleChanceStatDisplay = document.getElementById("upgrade-gapple-chance-stat-display");
+
+const upgradeBonusGemsPriceDisplay = document.getElementById("upgrade-bonus-gems-price-display");
+const upgradeBonusGemsStatDisplay = document.getElementById("upgrade-bonus-gems-stat-display");
+const upgradeMultiplyGemPriceDisplay = document.getElementById("upgrade-multiply-gem-price-display");
+const upgradeMultiplyGemStatDisplay = document.getElementById("upgrade-multiply-gem-stat-display");
 
 // Statistics Display
 const shopGoldDisplay = document.getElementById("shop-gold-display");
@@ -60,6 +97,11 @@ const shopDayDisplay = document.getElementById("shop-day-display");
 // Side bar thingies
 const rightSideContent = document.getElementsByClassName("right-side-content");
 
+// Time Left
+const timeLeftDisplay = document.getElementById("time-left-display");
+let tick = 0;
+let timeLeftSeconds = 0;
+
 // Shop Related Variables
 let currentShop = 0; // 0 - Gold, 1 - Other, 2 - Gems
 let upgradeCurrencyType;
@@ -68,12 +110,18 @@ let gemsUnlocked = true;
 // Shop Default Prices
 let bonusGoldUpgradePrice = 12;
 let multiplyGoldUpgradePrice = 18;
+let timeUpgradePrice = 8;
 let bonusApplesUpgradePrice = 30;
 let gappleChanceUpgradePrice = 25;
 let bonusGemsUpgradePrice = 24;
 let multiplyGemUpgradePrice = 36;
 
 let priceIncrease = 50;
+
+// Apples
+let applePositions = [
+
+]
 
 // Shop Upgrade Colors
 const upgradeColors = [
@@ -91,6 +139,7 @@ const upgradeColors = [
 
 const bonusGoldColorDisplay = document.getElementById("upgrade-bonus-gold-tile");
 const multiplyGoldColorDisplay = document.getElementById("upgrade-multiply-gold-tile");
+const timeColorDisplay = document.getElementById("upgrade-time-tile");
 const bonusApplesColorDisplay = document.getElementById("upgrade-bonus-apples-tile");
 const gappleChanceColorDisplay = document.getElementById("upgrade-gapple-chance-tile");
 const bonusGemsColorDisplay = document.getElementById("upgrade-bonus-gems-tile");
@@ -98,6 +147,7 @@ const multiplyGemsColorDisplay = document.getElementById("upgrade-multiply-gem-t
 
 const bonusGoldColor = upgradeColors[0];
 const multiplyGoldColor = upgradeColors[0];
+const timeColor = upgradeColors[0];
 const bonusApplesColor = upgradeColors[0];
 const gappleChanceColor = upgradeColors[0];
 const bonusGemsColor = upgradeColors[0];
@@ -114,6 +164,7 @@ let lostGem = 0;
 // Upgrade Levels & Stats
 let bonusGoldLevel = 1;
 let multiplyGoldLevel = 1;
+let timeLevel = 1;
 let bonusApplesLevel = 1;
 let gappleChanceLevel = 1;
 let bonusGemsLevel = 1;
@@ -121,6 +172,7 @@ let multiplyGemLevel = 1;
 
 let bonusGoldValue = 1;
 let multiplyGoldValue = 1;
+let timeValue = 10;
 let bonusApplesValue = 1;
 let gappleChanceValue = 0;
 let bonusGemsValue = 1;
@@ -153,11 +205,6 @@ dayMusic.currentTime = 12.1;
 
 //! Switching Shop Types
 
-onload = function() {
-    changeShopGold();
-    updateDisplays()
-};
-
 function nextShopMode() {
     const nextShopModeSound = new Audio("Audio/next_shop_mode.mp3");
     nextShopModeSound.volume = 0.5;
@@ -188,6 +235,7 @@ function changeShopGold() {
 
     upgradeBonusGoldTile.style.display = "flex";
     upgradeMultiplyGoldTile.style.display = "flex";
+    upgradeTimeTile.style.display = "none";
     upgradeBonusApplesTile.style.display = "none";
     upgradeGappleChanceTile.style.display = "none";
     upgradeBonusGemsTile.style.display = "none";
@@ -204,6 +252,7 @@ function changeShopOther() {
 
     upgradeBonusGoldTile.style.display = "none";
     upgradeMultiplyGoldTile.style.display = "none";
+    upgradeTimeTile.style.display = "flex";
     upgradeBonusApplesTile.style.display = "flex";
     upgradeGappleChanceTile.style.display = "flex";
     upgradeBonusGemsTile.style.display = "none";
@@ -220,6 +269,7 @@ function changeShopGems() {
 
     upgradeBonusGoldTile.style.display = "none";
     upgradeMultiplyGoldTile.style.display = "none";
+    upgradeTimeTile.style.display = "none";
     upgradeBonusApplesTile.style.display = "none";
     upgradeGappleChanceTile.style.display = "none";
     upgradeBonusGemsTile.style.display = "flex";
@@ -247,6 +297,21 @@ for (const button of upgradeBonusGoldButtons) {
                 tileImage.style.transition = "200ms";
                 tileImage.style.border = "4px solid " + upgradeColors[Math.min(upgradeColors.length - 1, multiplyGoldLevel - 1)];
                 break;
+            case "Time":
+                upgradeTime();
+                tileImage.style.transition = "200ms";
+                tileImage.style.border = "4px solid " + upgradeColors[Math.min(upgradeColors.length - 1, timeLevel - 1)];
+                break;
+            case "Bonus Apples":
+                upgradeBonusApples();
+                tileImage.style.transition = "200ms";
+                tileImage.style.border = "4px solid " + upgradeColors[Math.min(upgradeColors.length - 1, bonusApplesLevel - 1)];
+                break;
+            case "Golden Apple Chance":
+                upgradeGappleChance();
+                tileImage.style.transition = "200ms";
+                tileImage.style.border = "4px solid " + upgradeColors[Math.min(upgradeColors.length - 1, gappleChanceLevel - 1)];
+                break;
         }
     })
 }
@@ -272,6 +337,21 @@ function upgradeMultiplyGold() {
         multiplyGoldLevel++;
         multiplyGoldValue += 0.1;
         multiplyGoldUpgradePrice += (multiplyGoldUpgradePrice * priceIncrease) / 100;
+        const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.play();
+    } else {
+        upgradeCurrencyType = "gold";
+        notEnoughCurrency();
+    }
+    updateDisplays();
+}
+
+function upgradeTime() {
+    if (gold >= timeUpgradePrice) {
+        gold -= timeUpgradePrice;
+        timeLevel++;
+        timeValue += 2;
+        timeUpgradePrice += (timeUpgradePrice * priceIncrease) / 100;
         const upgradeSound = new Audio("Audio/upgrade.wav");
         upgradeSound.play();
     } else {
@@ -332,15 +412,32 @@ function draw() {
     square(xPos + snakeHeadSize / 10, yPos + snakeHeadSize / 10, snakeHeadSize * 0.8, snakeHeadSize / 8);
 
     // Draw apple if there's less than max apples
-    if (appleAmount < bonusApplesLevel) {
+    if (appleAmount < bonusApplesValue) {
         drawApple();
     }
+
+    // Time Left
+    if (dayDisplay.style.display == "flex") {
+        tick++
+        if (tick = 60) {
+            tick = 0;
+            timeLeftSeconds--;
+            if (timeLeftSeconds / 60 < 9.5) {
+                timeLeftDisplay.textContent = "00:0" + (timeLeftSeconds / 60).toFixed(0);
+            } else {
+                timeLeftDisplay.textContent = "00:" + (timeLeftSeconds / 60).toFixed(0);
+            }
+            if (timeLeftSeconds == 0) nextDay();
+        }
+    }
+    
 }
 
 function drawApple() {
     appleAmount++;
     appleX = (Math.round(Math.random() * (canvasGridSize - 1)) * snakeHeadSize);
     appleY = (Math.round(Math.random() * (canvasGridSize - 1)) * snakeHeadSize);
+    // applePositions.push(appleX, appleY);
 
     while (appleX == xPos && appleY == yPos) {
         appleX = (Math.round(Math.random() * (canvasGridSize - 1)) * snakeHeadSize);
@@ -409,7 +506,7 @@ function keyPressed() {
     }
 
     // Check when player is on apple
-    if (appleX == xPos && appleY == yPos) {
+    if (xPos == appleX && yPos == appleY) {
         console.log("YOU ON APPLE!!!!!!!!!!!!!!!");
         const eatAppleSound = new Audio("Audio/eat_apple.wav");
         eatAppleSound.play();
@@ -424,7 +521,24 @@ function keyPressed() {
         earnedGoldDisplay.style.animation = "currency-blink-yellow 200ms";
         updateDisplays()
     }
-};
+    // for (let i = 0; i < bonusApplesValue; i++) {
+    //     if (applePositions[0 + i * 2] == xPos && applePositions[1 + i * 2] == yPos) {
+    //         console.log("YOU ON APPLE!!!!!!!!!!!!!!!");
+    //         const eatAppleSound = new Audio("Audio/eat_apple.wav");
+    //         eatAppleSound.play();
+    //         appleAmount--;
+    //         gold += bonusGoldValue * multiplyGoldValue;
+    //         earnedGold += bonusGoldValue * multiplyGoldValue;
+    //         dayGoldDisplay.style.animation = "none";
+    //         dayGoldDisplay.offsetHeight;
+    //         dayGoldDisplay.style.animation = "currency-blink-yellow 200ms";
+    //         earnedGoldDisplay.style.animation = "none";
+    //         earnedGoldDisplay.offsetHeight;
+    //         earnedGoldDisplay.style.animation = "currency-blink-yellow 200ms";
+    //         updateDisplays()
+    //     }
+    // }
+}
 
 function hitSide(direction) {
     snakeCanvasDisplay.style.animation = "none";
@@ -458,6 +572,8 @@ function beginDay() {
 
     const beginDaySound = new Audio("Audio/begin_day.ogg");
     beginDaySound.play();
+
+    timeLeftSeconds = timeValue * 60;
 
     dayMusic.play();
     shopMusic.currentTime = 10.7;

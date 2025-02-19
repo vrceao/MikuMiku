@@ -354,17 +354,17 @@ img {
     align-self: center;
 }
 
-.day-container {
+.day-container, .time-container {
     width: 100%;
     height: 100%;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
-.day-container div {
+.day-container div, .time-container div {
     width: 100%;
-    height: 50%;
 
     display: flex;
     flex-direction: row;
@@ -372,7 +372,15 @@ img {
     justify-content: center;
 }
 
-.day-container p {
+.day-container div {
+    height: 50%;
+}
+
+.time-container div {
+    height: 30%;
+}
+
+.day-container p, .time-container p {
     font-size: 40px;
     font-family: "Slackey";
 }
