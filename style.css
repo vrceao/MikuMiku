@@ -36,6 +36,32 @@
     100% { border-right: 8px solid #404040}
 }
 
+/*! Notifications */
+
+#notification-background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+
+    background: #00000000;
+
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    transition: 250ms;
+}
+
+.notification-content {
+    font-family: "Roboto";
+    font-size: 48px;
+    opacity: 0%;
+
+    transition: 500ms;
+}
+
 /*! I'm so silly */
 
 * {
@@ -198,6 +224,8 @@ img {
     gap: 32px;
 }
 
+/* Tiles */
+
 .tile {
     width: 640px;
     height: 256px;
@@ -303,12 +331,7 @@ img {
 
 .upgrade-button {
     height: 64px;
-    width: 70%;
-}
-
-.upgrade-info-button {
-    width: 64px;
-    height: 64px;
+    width: 95%;
 }
 
 .upgrade-buttons > button {
@@ -328,6 +351,25 @@ img {
 
 .upgrade-buttons > button:active {
     background: #484848;
+}
+
+/* Tile Level */
+
+.tile-level-container {
+    position:absolute;
+    width: 128px;
+    height: 40px;
+
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tile-level-value {
+    font-family: "Roboto";
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /*! Day */

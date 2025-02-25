@@ -16,6 +16,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<!--! Notifications -->
+    <div id="notification-background">
+        <p class="notification-content" style="font-weight: bold;">Something unlocked bitch</p>
+        <p class="notification-content">Something unlocked bitch</p>
+    </div>
     <div id="container">
 <!--! Shop -->
         <div class="menu" id="shop">
@@ -23,6 +28,9 @@
 <!-- UPGRADE BONUS GOLD -->
                 <div class="tile" id="upgrade-bonus-gold-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-bonus-gold-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/upgrade_bonus_gold.png" draggable="false">
                     </div>
                     <div class="tile-details">
@@ -31,15 +39,14 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p id="upgrade-bonus-gold-stat-display">Current: 1.00 (+1)</p>
+                                <p id="upgrade-bonus-gold-stat-display">Current: 0.00 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-bonus-gold-price-display">Price: 0</p>
+                                <p id="upgrade-bonus-gold-price-display">Price: 12.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeBonusGoldDetails()" class="upgrade-info-button">?</button>
+                                <button onclick="upgradeBonusGold()" class="upgrade-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -47,6 +54,9 @@
 <!-- UPGRADE MULTIPLY GOLD -->
                 <div class="tile" id="upgrade-multiply-gold-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-multiply-gold-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/upgrade_multiply_gold.png" draggable="false">
                     </div>
                     <div class="tile-details">
@@ -62,39 +72,43 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeMultiplyGoldDetails()" class="upgrade-info-button">?</button>
+                                <button onclick="upgradeMultiplyGold()" class="upgrade-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
                 </div>
 <!-- UPGRADE TIME -->
-                <div class="tile" id="upgrade-time-tile">
+                <div class="tile" id="upgrade-time-limit-tile">
                     <div class="tile-image">
-                        <img src="Assets/upgrade_time.png" draggable="false">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-time-limit-level-display">Level 0/10</p>
+                        </div>
+                        <img src="Assets/upgrade_time_limit.png" draggable="false">
                     </div>
                     <div class="tile-details">
                         <div class="tile-title">
-                            <p>Time</p>
+                            <p>Time Limit</p>
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p id="upgrade-time-stat-display">Current: 10s (+2s)</p>
+                                <p id="upgrade-time-limit-stat-display">Current: 10s (+2s)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-time-price-display">Price: 8.00</p>
+                                <p id="upgrade-time-limit-price-display">Price: 8.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeTime()" class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeTimeDetails()" class="upgrade-info-button">?</button>
+                                <button onclick="upgradeTimeLimit()" class="upgrade-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
                 </div>
 <!-- UPGRADE BONUS APPLES -->
-                <div class="tile" id="upgrade-bonus-apples-tile" style="opacity: 10%;">
+                <div class="tile" id="upgrade-bonus-apples-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-bonus-apples-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/upgrade_bonus_apples.png" draggable="false">
                     </div>
                     <div class="tile-details">
@@ -111,14 +125,16 @@
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeBonusApples()" class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeBonusApplesDetails()" class="upgrade-info-button">?</button>
                             </div>
                         </div>
                     </div>
                 </div>
 <!-- UPGRADE GAPPLE CHANCE -->
-                <div class="tile" id="upgrade-gapple-chance-tile" style="opacity: 10%;">
+                <div class="tile" id="upgrade-gapple-chance-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-gapple-chance-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/gapple.png" draggable="false">
                     </div>
                     <div class="tile-details">
@@ -135,14 +151,42 @@
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeGappleChance()" class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeGappleChanceDetails()" class="upgrade-info-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE DASH -->
+                <div class="tile" id="upgrade-dash-tile">
+                    <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-dash-level-display">Level 0/1</p>
+                        </div>
+                        <img src="Assets/upgrade_dash.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Unlock Dashing</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-dash-stat-display">Current: Locked</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-dash-price-display">Price: 500.00</p>
+                                <img src="Assets/gold.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeDash()" class="upgrade-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
                 </div>
 <!-- UPGRADE BONUS GEMS -->
-                <div class="tile" id="upgrade-bonus-gems-tile" style="opacity: 10%;">
+                <div class="tile" id="upgrade-bonus-gems-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-bonus-gems-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/upgrade_bonus_gem.png" draggable="false">
                     </div>
                     <div class="tile-details">
@@ -151,39 +195,40 @@
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
-                                <p id="upgrade-bonus-gems-stat-display">Current: 1 (+1)</p>
+                                <p id="upgrade-bonus-gems-stat-display">Current: 0.00 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-bonus-gems-price-display">Price: 24.00</p>
-                                <img src="Assets/gold.png" draggable="false">
+                                <p id="upgrade-bonus-gems-price-display">Price: 18.00</p>
+                                <img src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeBonusGems()" class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeBonusGemsDetails()" class="upgrade-info-button">?</button>
                             </div>
                         </div>
                     </div>
                 </div>
 <!-- UPGRADE MULTIPLY GEM -->
-                <div class="tile" id="upgrade-multiply-gem-tile" style="opacity: 10%;">
+                <div class="tile" id="upgrade-multiply-gem-tile">
                     <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-multiply-gem-level-display">Level 0/10</p>
+                        </div>
                         <img src="Assets/upgrade_multiply_gem.png" draggable="false">
                     </div>
                     <div class="tile-details">
                         <div class="tile-title">
-                            <p>Gem Multiplayer</p>
+                            <p>Gem Multiplier</p>
                         </div>
                         <div class="tile-info">
                             <div class="upgrade-info">
                                 <p id="upgrade-multiply-gem-stat-display">Current: x1.00 (+10%)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-multiply-gem-price-display">Price: 36.00</p>
-                                <img src="Assets/gold.png" draggable="false">
+                                <p id="upgrade-multiply-gem-price-display">Price: 18.00</p>
+                                <img src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeMultiplyGem()" class="upgrade-button">Upgrade</button>
-                                <button onclick="upgradeMultiplyGemDetails()" class="upgrade-info-button">?</button>
                             </div>
                         </div>
                     </div>
@@ -214,6 +259,7 @@
                             <div id="shop-mode-icon">
                                 <img id="gold-shop-icon" src="Assets/gold.png" draggable="false">
                                 <img id="other-shop-icon" src="Assets/apple.png" draggable="false">
+                                <img id="special-shop-icon" src="Assets/star.png" draggable="false">
                                 <img id="gem-shop-icon" src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="shop-mode-side">
