@@ -176,7 +176,8 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeDash()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeDash()" class="big-upgrade-button">Unlock</button>
+                                <button onclick="upgradeDashDetails()" class="small-upgrade-button" id="upgrade-dash-details-button">?</button>
                             </div>
                         </div>
                     </div>
@@ -278,6 +279,18 @@
                     </div>
                 </div>
                 
+                <div class="upgrade-details" id="upgrade-dash-details">
+                    <p></p>
+                    <p class="upgrade-details-title">Dashing</p>
+                    <img src="Assets/upgrade_dash.png" draggable="false">
+                    <p class="upgrade-details-description">After unlocking this ability, you're able to dash to the nearest apple, or dash to the edge of the map if there aren't any apples on your way.</p>
+                    <p class="upgrade-details-description">You can dash by holding shift and moving in any direction.</p>
+                    <div class="price-tag upgrade-details-price-tag">
+                        <p>Price: 500.00</p>
+                        <img src="Assets/gold.png" draggable="false">
+                    </div>
+                    <button onclick="upgradeDash()" id="upgrade-dash-details-unlock-button">Unlock</button>
+                </div>
             </div>
         </div>
 <!--! Day -->

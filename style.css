@@ -92,10 +92,12 @@ img {
     border-top: 5px solid #202020;
 }
 
-.default-right-side {
+.right-side > div {
     width: 100%;
     height: 100%;
+}
 
+.default-right-side {
     display: flex;
     flex-direction: column;
     align-self: flex-end;
@@ -296,6 +298,7 @@ img {
 .price-tag {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .tile-info p {
@@ -330,11 +333,20 @@ img {
 }
 
 .upgrade-button {
-    height: 64px;
     width: 95%;
 }
 
-.upgrade-buttons > button {
+.big-upgrade-button {
+    width: 75%;
+}
+
+.small-upgrade-button {
+    width: 64px;
+}
+
+.upgrade-buttons > button{
+    height: 64px;
+
     background: #282828;
     border: 4px solid #202020;
     border-radius: 8px;
@@ -344,12 +356,12 @@ img {
     transition: 200ms;
 }
 
-.upgrade-buttons > button:hover {
+.upgrade-buttons > button:hover, .upgrade-details button:hover {
     background: #363636;
     cursor: pointer;
 }
 
-.upgrade-buttons > button:active {
+.upgrade-buttons > button:active, .upgrade-details button:active {
     background: #484848;
 }
 
@@ -370,6 +382,66 @@ img {
     font-family: "Roboto";
     font-weight: bold;
     font-size: 16px;
+}
+
+/* upgrade details */
+
+.upgrade-details {
+    display: none;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.upgrade-details > img {
+    width: 80%;
+
+    align-self: center;
+}
+
+.upgrade-details-title {
+    align-self: center;
+
+    font-size: 48px;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+
+.upgrade-details-description {
+    margin-left: 16px;
+    margin-right: 16px;
+
+    font-size: 20px;
+    font-family: "Roboto";
+}
+
+.upgrade-details-price-tag {
+    align-self: center;
+}
+
+.upgrade-details-price-tag p {
+    margin-left: 16px;
+
+    font-size: 32px;
+    font-family: "Roboto";
+}
+
+.upgrade-details-price-tag img {
+    margin-left: 5px;
+    height: 64px;
+}
+
+.upgrade-details button {
+    align-self: center;
+    width: 90%;
+    height: 64px;
+
+    background: #202020;
+    border: 4px solid #161616;
+    border-radius: 8px;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Roboto";
+    transition: 200ms;
 }
 
 /*! Day */

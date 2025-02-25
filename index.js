@@ -155,6 +155,7 @@ let priceIncrease = 50;
 // Apples
 let nextAppleType;
 let appleAmount = 0;
+let appleDetected = false;
 let applePositions = []
 
 // Shop Upgrade Colors
@@ -230,6 +231,15 @@ const snakeHeadSize = 80;
 let xPos = canvasWidth / 2 - tileWidth / 2;
 let yPos = canvasHeight / 2 - tileHeight / 2;
 
+// Dashing
+const defaultRightSideShopDisplay = document.getElementsByClassName("default-right-side");
+const upgradeDashDetailsButtonDisplay = document.getElementById("upgrade-dash-details-button");
+const upgradeDashDetailsDisplay = document.getElementById("upgrade-dash-details");
+let temporaryXpos;
+let temporaryYpos;
+let dashed = false;
+let dashDirection;
+
 // Notifications
 const notificationBackgroundDisplay = document.getElementById("notification-background");
 const notificationContentDisplay = document.getElementsByClassName("notification-content");
@@ -237,6 +247,7 @@ const notificationContentDisplay = document.getElementsByClassName("notification
 // Others
 let day = 1;
 let scene = "shop";
+let currentSide = "default";
 
 // Music
 const dayMusic = new Audio("Audio/day_music.mp3");
@@ -261,6 +272,8 @@ function nextShopMode() {
     else if (currentShop == "Special" && !gemsUnlocked) changeShopGold();
     else if (currentShop == "Special" && gemsUnlocked) changeShopGems();
     else if (currentShop == "Gems") changeShopGold();
+
+    resetCurrentSide()
 }
 
 function previousShopMode() {
@@ -275,6 +288,8 @@ function previousShopMode() {
     else if (currentShop == "Special") changeShopOther();
     else if (currentShop == "Gems" && !specialsUnlocked) changeShopOther();
     else if (currentShop == "Gems" && specialsUnlocked) changeShopSpecial();
+
+    resetCurrentSide()
 }
 
 
@@ -353,6 +368,14 @@ function changeShopGems() {
     upgradeMultiplyGemTile.style.display = "flex";
 
     console.log("Current shop type: " + currentShop);
+}
+
+function resetCurrentSide() {
+    currentSide = "default";
+    upgradeDashDetailsButtonDisplay.textContent = "?";
+    upgradeDashDetailsDisplay.style.display = "none";
+
+    defaultRightSideShopDisplay[0].style.display = "flex";
 }
 
 //! Buying Stuff
@@ -452,11 +475,24 @@ function upgradeDash() {
         upgradeDashLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[9];
         const upgradeSound = new Audio("Audio/upgrade.wav");
         upgradeSound.play();
+        document.getElementById("upgrade-dash-details-unlock-button").style.display = "none";
+        resetCurrentSide();
     } else if (!(gold >= dashUpgradePrice) && dashLevel != 1) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
     }
     updateDisplays();
+}
+
+function upgradeDashDetails() {
+    if (currentSide != "dash") {
+        currentSide = "dash";
+        upgradeDashDetailsButtonDisplay.textContent = "X";
+        upgradeDashDetailsDisplay.style.display = "flex";
+        defaultRightSideShopDisplay[0].style.display = "none";
+    } else if (currentSide == "dash") {
+        resetCurrentSide();
+    }
 }
 
 function upgradeBonusGems() {
@@ -624,6 +660,69 @@ function notification(text, subtext) {
     }, 2000);
 }
 
+function checkForApple() {
+    // Checking when player on apple
+    for (let i = 0; i < appleAmount; i++) {
+        if (applePositions[i][0] == xPos && applePositions[i][1] == yPos) {
+            if (dashed == true) {
+                dashed = false;
+                if (dashDirection == "positive") {
+                    temporaryXpos = 0;
+                    temporaryYpos = 0;
+                } else if (dashDirection == "negative") {
+                    temporaryXpos = canvasWidth / snakeHeadSize;
+                    temporaryYpos = canvasHeight / snakeHeadSize;
+                }
+            }
+            // Change apple amount
+            appleAmount--;
+
+            // Different sound and gain
+            if (applePositions[i][2] == "normal") {
+                const eatAppleSound = new Audio("Audio/eat_apple.wav");
+                eatAppleSound.play();
+                // Gold
+                gold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
+                earnedGold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
+            } else if (applePositions[i][2] == "golden") {
+                const eatGappleSound = new Audio("Audio/eat_gapple.wav");
+                eatGappleSound.play();
+                // Gold
+                gold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
+                earnedGold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
+                // Gems
+                gem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
+                earnedGem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
+                if (!gemsUnlocked) {
+                    gemsUnlocked = true;
+                    notification("Gem Upgrades Unlocked!", "Access them in the shop.");
+                }
+            }
+
+            square(applePositions[i][0], applePositions[i][1], snakeHeadSize);
+
+            // Remove apple position from array
+            applePositions.splice(i, 1);
+
+            // Check if player unlocked specials
+            if (gold >= 200 && !specialsUnlocked) {
+                specialsUnlocked = true;
+                notification("Special Upgrades Unlocked!", "Access them in the shop.");
+            }
+
+            // Animations
+            dayGoldDisplay.style.animation = "none";
+            dayGoldDisplay.offsetHeight;
+            dayGoldDisplay.style.animation = "currency-blink-yellow 200ms";
+            earnedGoldDisplay.style.animation = "none";
+            earnedGoldDisplay.offsetHeight;
+            earnedGoldDisplay.style.animation = "currency-blink-yellow 200ms";
+
+            updateDisplays()
+        }
+    }
+}
+
 function keyPressed() {
     stroke(40);
     fill(40);
@@ -653,6 +752,9 @@ function keyPressed() {
                     break;
             }
         } else if (dashValue == "Unlocked") {
+            temporaryXpos = ((canvasWidth - xPos - snakeHeadSize) / snakeHeadSize);
+            temporaryYpos = ((canvasWidth - yPos - snakeHeadSize) / snakeHeadSize);
+            dashed = true;
             switch (key) {
                 case "w":
                 case "ArrowUp":
@@ -672,18 +774,35 @@ function keyPressed() {
                     break;
                 
                 case "W":
-                    yPos = 0;
+                    dashDirection = "negative";
+                    for (let i = 0; i < Math.abs(temporaryYpos - canvasHeight / snakeHeadSize) - 1; i++) {
+                        yPos -= snakeHeadSize;
+                        checkForApple();
+                    }
                     break;
                 case "A":
-                    xPos = 0;
+                    dashDirection = "negative";
+                    for (let i = 0; i < Math.abs(temporaryXpos - canvasWidth / snakeHeadSize) - 1; i++) {
+                        xPos -= snakeHeadSize;
+                        checkForApple();
+                    }
                     break;
                 case "S":
-                    yPos += canvasHeight - yPos - snakeHeadSize;
+                    dashDirection = "positive";
+                    for (let i = 0; i < temporaryYpos; i++) {
+                        yPos += snakeHeadSize;
+                        checkForApple();
+                    }
                     break;
                 case "D":
-                    xPos += canvasWidth - xPos - snakeHeadSize;
+                    dashDirection = "positive";
+                    for (let i = 0; i < temporaryXpos; i++) {
+                        xPos += snakeHeadSize;
+                        checkForApple();
+                    }
                     break;
             }
+            dashed = false;
         }
         console.log("Current Position:", xPos, yPos, "(", xPos / snakeHeadSize, yPos / snakeHeadSize, ")");
     
@@ -711,54 +830,7 @@ function keyPressed() {
             hitSide(direction);
         }
     
-        // Checking when player on apple
-        for (let i = 0; i < appleAmount; i++) {
-            if (applePositions[i][0] == xPos && applePositions[i][1] == yPos) {
-                // Change apple amount
-                appleAmount--;
-    
-                // Different sound and gain
-                if (applePositions[i][2] == "normal") {
-                    const eatAppleSound = new Audio("Audio/eat_apple.wav");
-                    eatAppleSound.play();
-                    // Gold
-                    gold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
-                    earnedGold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
-                } else if (applePositions[i][2] == "golden") {
-                    const eatGappleSound = new Audio("Audio/eat_gapple.wav");
-                    eatGappleSound.play();
-                    // Gold
-                    gold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
-                    earnedGold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
-                    // Gems
-                    gem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
-                    earnedGem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
-                    if (!gemsUnlocked) {
-                        gemsUnlocked = true;
-                        notification("Gem Upgrades Unlocked!", "Access them in the shop.");
-                    }
-                }
-
-                // Remove apple position from array
-                applePositions.splice(i, 1);
-
-                // Check if player unlocked specials
-                if (gold >= 200 && !specialsUnlocked) {
-                    specialsUnlocked = true;
-                    notification("Special Upgrades Unlocked!", "Access them in the shop.");
-                }
-
-                // Animations
-                dayGoldDisplay.style.animation = "none";
-                dayGoldDisplay.offsetHeight;
-                dayGoldDisplay.style.animation = "currency-blink-yellow 200ms";
-                earnedGoldDisplay.style.animation = "none";
-                earnedGoldDisplay.offsetHeight;
-                earnedGoldDisplay.style.animation = "currency-blink-yellow 200ms";
-    
-                updateDisplays()
-            }
-        }
+        checkForApple();
     } else if (scene == "shop") {
         switch (key) {
             case "a":
@@ -814,8 +886,6 @@ function hitSide(direction) {
     }
 
     updateDisplays();
-
-    
 }
 
 //! Switching Scenes
