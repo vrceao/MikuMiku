@@ -206,9 +206,9 @@ const bonusGemsColor = upgradeColors[0];
 const multiplyGemColor = upgradeColors[0];
 
 // Currencies
-let gold = 11222;
+let gold = 0;
 let goldCompletitionMultiplier = 1;
-let gem = 1220;
+let gem = 0;
 let gemCompletitionMultiplier = 1;
 let earnedGold = 0;
 let earnedGem = 0;
