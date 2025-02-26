@@ -150,7 +150,8 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeGappleChance()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeGappleChance()" class="big-upgrade-button">Upgrade</button>
+                                <button onclick="upgradeGappleChanceDetails()" class="small-upgrade-button" id="upgrade-gapple-chance-details-button">?</button>
                             </div>
                         </div>
                     </div>
@@ -172,12 +173,42 @@
                                 <p id="upgrade-dash-stat-display">Current: Locked</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-dash-price-display">Price: 500.00</p>
+                                <p id="upgrade-dash-price-display">Price: 750.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeDash()" class="big-upgrade-button">Unlock</button>
                                 <button onclick="upgradeDashDetails()" class="small-upgrade-button" id="upgrade-dash-details-button">?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- UPGRADE PUT MIKU TO SLEEP -->
+                <div class="tile" id="upgrade-sleep-tile">
+                    <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-sleep-level-display">Level 0/1</p>
+                        </div>
+                        <img src="Assets/upgrade_sleep.png" draggable="false" id="upgrade-sleep-miku-asleep">
+                        <img src="Assets/sleepy_miku.png" draggable="false" style="display: none" id="upgrade-sleep-miku-awake">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Put Miku to sleep</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-sleep-stat-display">Current: Locked</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-sleep-price-display">Price: 400.00</p>
+                                <img src="Assets/gem.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeSleep()" class="big-upgrade-button" id="upgrade-sleep-unlock-button">Unlock</button>
+                                <button onclick="mikuSleep()" class="big-upgrade-button" id="upgrade-sleep-miku-sleep-button">Put Miku to sleep</button>
+                                <button onclick="mikuWake()" class="big-upgrade-button" id="upgrade-sleep-miku-awake-button">Wake up Miku</button>
+                                <button onclick="upgradeSleepDetails()" class="small-upgrade-button" id="upgrade-sleep-details-button">?</button>
                             </div>
                         </div>
                     </div>
@@ -278,7 +309,16 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="upgrade-details" id="upgrade-gapple-chance-details">
+                    <p></p>
+                    <p class="upgrade-details-title">Golden apples</p>
+                    <img src="Assets/gapple.png" draggable="false">
+                    <p class="upgrade-details-description">Golden apples overwrite some of the normal apples. Frequency depends on their upgrade level.</p>
+                    <p class="upgrade-details-description">They yield double the gold and 1 gem by default.</p>
+                    <button onclick="upgradeGappleChance()" id="upgrade-gapple-details-unlock-button">Upgrade</button>
+                </div>
+
                 <div class="upgrade-details" id="upgrade-dash-details">
                     <p></p>
                     <p class="upgrade-details-title">Dashing</p>
@@ -286,10 +326,26 @@
                     <p class="upgrade-details-description">After unlocking this ability, you're able to dash to the nearest apple, or dash to the edge of the map if there aren't any apples on your way.</p>
                     <p class="upgrade-details-description">You can dash by holding shift and moving in any direction.</p>
                     <div class="price-tag upgrade-details-price-tag">
-                        <p>Price: 500.00</p>
+                        <p>Price: 750.00</p>
                         <img src="Assets/gold.png" draggable="false">
                     </div>
                     <button onclick="upgradeDash()" id="upgrade-dash-details-unlock-button">Unlock</button>
+                </div>
+
+                <div class="upgrade-details" id="upgrade-sleep-details">
+                    <p></p>
+                    <p class="upgrade-details-title">Sleeping Miku</p>
+                    <img src="Assets/upgrade_sleep.png" draggable="false" id="details-sleep-miku-asleep">
+                    <img src="Assets/sleepy_miku.png" draggable="false" style="display: none" id="details-sleep-miku-awake">
+                    <p class="upgrade-details-description">After making Miku fall asleep by turning off the internet, you can bump against the walls without being worried about losing your stuff.</p>
+                    <p class="upgrade-details-description">You can wake up Miku again anytime you wish.</p>
+                    <div class="price-tag upgrade-details-price-tag">
+                        <p>Price: 400.00</p>
+                        <img src="Assets/gem.png" draggable="false">
+                    </div>
+                    <button onclick="upgradeSleep()" id="upgrade-sleep-details-unlock-button">Unlock</button>
+                    <button onclick="mikuSleep()" class="big-upgrade-button" style="display: none" id="details-sleep-miku-sleep-button">Put Miku to sleep</button>
+                    <button onclick="mikuWake()" class="big-upgrade-button" style="display: none" id="details-sleep-miku-awake-button">Wake up Miku</button>
                 </div>
             </div>
         </div>

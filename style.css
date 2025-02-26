@@ -444,6 +444,11 @@ img {
     transition: 200ms;
 }
 
+/* Miku sleep uwu */
+#upgrade-sleep-miku-sleep-button, #upgrade-sleep-miku-awake-button {
+    display: none;
+}
+
 /*! Day */
 
 #day {
