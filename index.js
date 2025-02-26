@@ -155,7 +155,7 @@ let priceIncrease = 50;
 // Apples
 let nextAppleType;
 let appleAmount = 0;
-let appleDetected = false;
+let foundApple = false;
 let applePositions = []
 
 // Shop Upgrade Colors
@@ -191,7 +191,7 @@ const bonusGemsColor = upgradeColors[0];
 const multiplyGemColor = upgradeColors[0];
 
 // Currencies
-let gold = 515;
+let gold = 0;
 let goldCompletitionMultiplier = 1;
 let gem = 0;
 let gemCompletitionMultiplier = 1;
@@ -673,6 +673,7 @@ function checkForApple() {
                     temporaryXpos = canvasWidth / snakeHeadSize;
                     temporaryYpos = canvasHeight / snakeHeadSize;
                 }
+                foundApple = true;
             }
             // Change apple amount
             appleAmount--;
@@ -779,12 +780,18 @@ function keyPressed() {
                         yPos -= snakeHeadSize;
                         checkForApple();
                     }
+                    if (foundApple == false) {
+                        yPos -= snakeHeadSize;
+                    }
                     break;
                 case "A":
                     dashDirection = "negative";
                     for (let i = 0; i < Math.abs(temporaryXpos - canvasWidth / snakeHeadSize) - 1; i++) {
                         xPos -= snakeHeadSize;
                         checkForApple();
+                    }
+                    if (foundApple == false) {
+                        xPos -= snakeHeadSize;
                     }
                     break;
                 case "S":
@@ -793,6 +800,9 @@ function keyPressed() {
                         yPos += snakeHeadSize;
                         checkForApple();
                     }
+                    if (foundApple == false) {
+                        yPos += snakeHeadSize;
+                    }
                     break;
                 case "D":
                     dashDirection = "positive";
@@ -800,12 +810,15 @@ function keyPressed() {
                         xPos += snakeHeadSize;
                         checkForApple();
                     }
+                    if (foundApple == false) {
+                        xPos += snakeHeadSize;
+                    }
                     break;
             }
             dashed = false;
         }
         console.log("Current Position:", xPos, yPos, "(", xPos / snakeHeadSize, yPos / snakeHeadSize, ")");
-    
+
         if (xPos >= canvasWidth) {
             xPos -= snakeHeadSize;
             direction = "d";
@@ -829,7 +842,8 @@ function keyPressed() {
             direction = "w";
             hitSide(direction);
         }
-    
+
+        foundApple = false;
         checkForApple();
     } else if (scene == "shop") {
         switch (key) {
