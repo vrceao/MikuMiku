@@ -12,6 +12,8 @@
     100% { color: #ffffff }
 }
 
+
+
 @keyframes miku-miku-beam-w {
     0% { border-top: 8px solid #404040}
     50% { border-top: 16px solid #0090c0}
@@ -33,6 +35,32 @@
 @keyframes miku-miku-beam-d {
     0% { border-right: 8px solid #404040}
     50% { border-right: 16px solid #0090c0}
+    100% { border-right: 8px solid #404040}
+}
+
+
+
+@keyframes miku-miku-beam-sleep-w {
+    0% { border-top: 8px solid #404040}
+    50% { border-top: 8px solid #0090c0}
+    100% { border-top: 8px solid #404040}
+}
+
+@keyframes miku-miku-beam-sleep-a {
+    0% { border-left: 8px solid #404040}
+    50% { border-left: 8px solid #0090c0}
+    100% { border-left: 8px solid #404040}
+}
+
+@keyframes miku-miku-beam-sleep-s {
+    0% { border-bottom: 8px solid #404040}
+    50% { border-bottom: 8px solid #0090c0}
+    100% { border-bottom: 8px solid #404040}
+}
+
+@keyframes miku-miku-beam-sleep-d {
+    0% { border-right: 8px solid #404040}
+    50% { border-right: 8px solid #0090c0}
     100% { border-right: 8px solid #404040}
 }
 
@@ -442,11 +470,6 @@ img {
     font-weight: bold;
     font-family: "Roboto";
     transition: 200ms;
-}
-
-/* Miku sleep uwu */
-#upgrade-sleep-miku-sleep-button, #upgrade-sleep-miku-awake-button {
-    display: none;
 }
 
 /*! Day */

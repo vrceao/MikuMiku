@@ -23,6 +23,7 @@
     </div>
     <div id="container">
 <!--! Shop -->
+<button onclick="gold = 99999; gem = 99999; updateDisplays()" style="color: red; opacity: 20%;">click this to enable dev mode</button>
         <div class="menu" id="shop">
             <div id="map">
 <!-- UPGRADE BONUS GOLD -->
@@ -103,6 +104,32 @@
                         </div>
                     </div>
                 </div>
+<!-- UPGRADE EXTRA TIME -->
+                <div class="tile" id="upgrade-extra-time-tile">
+                    <div class="tile-image">
+                        <div class="tile-level-container">
+                            <p class="tile-level-value" id="upgrade-extra-time-level-display">Level 0/10</p>
+                        </div>
+                        <img src="Assets/upgrade_extra_time.png" draggable="false">
+                    </div>
+                    <div class="tile-details">
+                        <div class="tile-title">
+                            <p>Extra Time</p>
+                        </div>
+                        <div class="tile-info">
+                            <div class="upgrade-info">
+                                <p id="upgrade-extra-time-stat-display">Current: 30s (+5s)</p>
+                            </div>
+                            <div class="upgrade-info price-tag">
+                                <p id="upgrade-extra-time-price-display">Price: 16.00</p>
+                                <img src="Assets/gem.png" draggable="false">
+                            </div>
+                            <div class="upgrade-buttons">
+                                <button onclick="upgradeExtraTime()" class="upgrade-button">Upgrade</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 <!-- UPGRADE BONUS APPLES -->
                 <div class="tile" id="upgrade-bonus-apples-tile">
                     <div class="tile-image">
@@ -120,7 +147,7 @@
                                 <p id="upgrade-bonus-apples-stat-display">Current: 1 (+1)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-bonus-apples-price-display">Price: 30.00</p>
+                                <p id="upgrade-bonus-apples-price-display">Price: 32.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -146,7 +173,7 @@
                                 <p id="upgrade-gapple-chance-stat-display">Current: 0% (+10%)</p>
                             </div>
                             <div class="upgrade-info price-tag">
-                                <p id="upgrade-gapple-chance-price-display">Price: 25.00</p>
+                                <p id="upgrade-gapple-chance-price-display">Price: 24.00</p>
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
@@ -189,8 +216,8 @@
                         <div class="tile-level-container">
                             <p class="tile-level-value" id="upgrade-sleep-level-display">Level 0/1</p>
                         </div>
-                        <img src="Assets/upgrade_sleep.png" draggable="false" id="upgrade-sleep-miku-asleep">
-                        <img src="Assets/sleepy_miku.png" draggable="false" style="display: none" id="upgrade-sleep-miku-awake">
+                        <img src="Assets/upgrade_sleep.png" draggable="false" style="display: none" id="upgrade-sleep-miku-asleep">
+                        <img src="Assets/sleepy_miku.png" draggable="false" id="upgrade-sleep-miku-awake">
                     </div>
                     <div class="tile-details">
                         <div class="tile-title">
@@ -206,8 +233,8 @@
                             </div>
                             <div class="upgrade-buttons">
                                 <button onclick="upgradeSleep()" class="big-upgrade-button" id="upgrade-sleep-unlock-button">Unlock</button>
-                                <button onclick="mikuSleep()" class="big-upgrade-button" id="upgrade-sleep-miku-sleep-button">Put Miku to sleep</button>
-                                <button onclick="mikuWake()" class="big-upgrade-button" id="upgrade-sleep-miku-awake-button">Wake up Miku</button>
+                                <button onclick="mikuSleep()" class="big-upgrade-button" id="put-miku-to-sleep-button" style="display: none">Put Miku to sleep</button>
+                                <button onclick="mikuWake()" class="big-upgrade-button" id="wake-up-miku-button" style="display: none">Wake up Miku</button>
                                 <button onclick="upgradeSleepDetails()" class="small-upgrade-button" id="upgrade-sleep-details-button">?</button>
                             </div>
                         </div>
@@ -368,7 +395,7 @@
                         </div>
                     </div>
 
-                    <div class="time-container">
+                    <div class="time-container" id="time-container">
                         <div>
                             <p>Time left</p>
                         </div>
