@@ -16,25 +16,25 @@
 
 @keyframes miku-miku-beam-w {
     0% { border-top: 8px solid #404040}
-    50% { border-top: 16px solid #0090c0}
+    50% { border-top: 8px solid #0090c0}
     100% { border-top: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-a {
     0% { border-left: 8px solid #404040}
-    50% { border-left: 16px solid #0090c0}
+    50% { border-left: 8px solid #0090c0}
     100% { border-left: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-s {
     0% { border-bottom: 8px solid #404040}
-    50% { border-bottom: 16px solid #0090c0}
+    50% { border-bottom: 8px solid #0090c0}
     100% { border-bottom: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-d {
     0% { border-right: 8px solid #404040}
-    50% { border-right: 16px solid #0090c0}
+    50% { border-right: 8px solid #0090c0}
     100% { border-right: 8px solid #404040}
 }
 
@@ -42,25 +42,25 @@
 
 @keyframes miku-miku-beam-sleep-w {
     0% { border-top: 8px solid #404040}
-    50% { border-top: 8px solid #0090c0}
+    50% { border-top: 8px solid #004860}
     100% { border-top: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-sleep-a {
     0% { border-left: 8px solid #404040}
-    50% { border-left: 8px solid #0090c0}
+    50% { border-left: 8px solid #004860}
     100% { border-left: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-sleep-s {
     0% { border-bottom: 8px solid #404040}
-    50% { border-bottom: 8px solid #0090c0}
+    50% { border-bottom: 8px solid #004860}
     100% { border-bottom: 8px solid #404040}
 }
 
 @keyframes miku-miku-beam-sleep-d {
     0% { border-right: 8px solid #404040}
-    50% { border-right: 8px solid #0090c0}
+    50% { border-right: 8px solid #004860}
     100% { border-right: 8px solid #404040}
 }
 

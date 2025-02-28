@@ -23,7 +23,7 @@
     </div>
     <div id="container">
 <!--! Shop -->
-<button onclick="gold = 99999; gem = 99999; updateDisplays()" style="color: red; opacity: 20%;">click this to enable dev mode</button>
+<button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay()" style="color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
         <div class="menu" id="shop">
             <div id="map">
 <!-- UPGRADE BONUS GOLD -->
@@ -47,7 +47,7 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeBonusGold()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusGold()" class="upgrade-button" id="upgrade-bonus-gold-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -73,12 +73,12 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeMultiplyGold()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeMultiplyGold()" class="upgrade-button" id="upgrade-multiply-gold-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
                 </div>
-<!-- UPGRADE TIME -->
+<!-- UPGRADE TIME LIMIT -->
                 <div class="tile" id="upgrade-time-limit-tile">
                     <div class="tile-image">
                         <div class="tile-level-container">
@@ -99,7 +99,7 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeTimeLimit()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeTimeLimit()" class="upgrade-button" id="upgrade-time-limit-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                                 <img src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeExtraTime()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeExtraTime()" class="upgrade-button" id="upgrade-extra-time-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeBonusApples()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusApples()" class="upgrade-button" id="upgrade-bonus-apples-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeGappleChance()" class="big-upgrade-button">Upgrade</button>
+                                <button onclick="upgradeGappleChance()" class="big-upgrade-button" id="upgrade-gapple-chance-unlock-button">Upgrade</button>
                                 <button onclick="upgradeGappleChanceDetails()" class="small-upgrade-button" id="upgrade-gapple-chance-details-button">?</button>
                             </div>
                         </div>
@@ -204,7 +204,9 @@
                                 <img src="Assets/gold.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeDash()" class="big-upgrade-button">Unlock</button>
+                                <button onclick="upgradeDash()" class="big-upgrade-button" id="upgrade-dash-unlock-button">Unlock</button>
+                                <button onclick="dashEnable()" class="big-upgrade-button" id="enable-dash-button" style="display: none">Enable</button>
+                                <button onclick="dashDisable()" class="big-upgrade-button" id="disable-dash-button" style="display: none">Disable</button>
                                 <button onclick="upgradeDashDetails()" class="small-upgrade-button" id="upgrade-dash-details-button">?</button>
                             </div>
                         </div>
@@ -261,7 +263,7 @@
                                 <img src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeBonusGems()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeBonusGems()" class="upgrade-button" id="upgrade-bonus-gems-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -287,7 +289,7 @@
                                 <img src="Assets/gem.png" draggable="false">
                             </div>
                             <div class="upgrade-buttons">
-                                <button onclick="upgradeMultiplyGem()" class="upgrade-button">Upgrade</button>
+                                <button onclick="upgradeMultiplyGem()" class="upgrade-button" id="upgrade-multiply-gem-unlock-button">Upgrade</button>
                             </div>
                         </div>
                     </div>
@@ -343,7 +345,7 @@
                     <img src="Assets/gapple.png" draggable="false">
                     <p class="upgrade-details-description">Golden apples overwrite some of the normal apples. Frequency depends on their upgrade level.</p>
                     <p class="upgrade-details-description">They yield double the gold and 1 gem by default.</p>
-                    <button onclick="upgradeGappleChance()" id="upgrade-gapple-details-unlock-button">Upgrade</button>
+                    <button onclick="upgradeGappleChance()" id="upgrade-gapple-chance-details-unlock-button">Upgrade</button>
                 </div>
 
                 <div class="upgrade-details" id="upgrade-dash-details">
@@ -400,7 +402,7 @@
                             <p>Time left</p>
                         </div>
                         <div>
-                            <p id="time-left-display">00:00</p>
+                            <p id="time-left-display">00s</p>
                         </div>
                     </div>
 

@@ -9,6 +9,7 @@
 //! Update Displays
 
 onload = function() {
+    notification("Ohayo!", "Press 'Begin Day' to start :3");
     changeShopGold();
     updateDisplays();
 };
@@ -316,8 +317,8 @@ const dayMusic = new Audio("Audio/day_music.mp3");
 const shopMusic = new Audio("Audio/shop_music.mp3");
 dayMusic.loop = true;
 shopMusic.loop = true;
-dayMusic.volume = 0.25;
-shopMusic.volume = 0.25;
+dayMusic.volume = 0.2;
+shopMusic.volume = 0.15;
 dayMusic.currentTime = 12.3;
 
 //! Switching Shop Types
@@ -457,6 +458,7 @@ function upgradeBonusGold() {
         if (bonusGoldLevel == 10) {
             upgradeBonusGoldPriceDisplay.style.display = "none";
             upgradeBonusGoldPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-bonus-gold-unlock-button").style.display = "none";
         }
         if (bonusGoldLevel == 10 && multiplyGoldLevel == 10 && goldCompletitionMultiplier == 1) {
             goldCompletitionMultiplier = 2;
@@ -481,6 +483,7 @@ function upgradeMultiplyGold() {
         if (multiplyGoldLevel == 10) {
             upgradeMultiplyGoldPriceDisplay.style.display = "none";
             upgradeMultiplyGoldPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-multiply-gold-unlock-button").style.display = "none";
         }
         if (bonusGoldLevel == 10 && multiplyGoldLevel == 10 && goldCompletitionMultiplier == 1) {
             goldCompletitionMultiplier = 2;
@@ -505,6 +508,8 @@ function upgradeTimeLimit() {
         if (timeLimitLevel == 10) {
             upgradeTimeLimitPriceDisplay.style.display = "none";
             upgradeTimeLimitPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-time-limit-unlock-button").style.display = "none";
+
             upgradeTimeLimitTile.style.display = "none";
             upgradeExtraTimeTile.style.display = "flex";
             notification("Time Limit upgrade maxed!", "Extra Time upgrade is now available.");
@@ -528,6 +533,8 @@ function upgradeExtraTime() {
         if (extraTimeLevel == 10) {
             upgradeExtraTimePriceDisplay.style.display = "none";
             upgradeExtraTimePriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-extra-time-unlock-button").style.display = "none";
+
             timeLimitValue = "Infinite";
             document.getElementById("time-container").style.display = "none";
             notification("Extra Time Maxed!", "Time Limit has been removed.");
@@ -551,6 +558,7 @@ function upgradeBonusApples() {
         if (bonusApplesLevel == 10) {
             upgradeBonusApplesPriceDisplay.style.display = "none";
             upgradeBonusApplesPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-bonus-apples-unlock-button").style.display = "none";
         }
     } else if (!(gold >= bonusApplesUpgradePrice) && bonusApplesLevel != 10) {
         upgradeCurrencyType = "gold";
@@ -571,6 +579,9 @@ function upgradeGappleChance() {
         if (gappleChanceLevel == 10) {
             upgradeGappleChancePriceDisplay.style.display = "none";
             upgradeGappleChancePriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-gapple-chance-unlock-button").style.display = "none";
+            document.getElementById("upgrade-gapple-chance-details-unlock-button").style.display = "none";
+            upgradeGappleChanceDetailsButtonDisplay.style.width = "95%";
         }
     } else if (!(gold >= gappleChanceUpgradePrice) && gappleChanceLevel != 10) {
         upgradeCurrencyType = "gold";
@@ -582,11 +593,15 @@ function upgradeGappleChance() {
 function upgradeGappleChanceDetails() {
     if (currentSide != "gappleChance") {
         resetCurrentSide();
+        const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.play();
         currentSide = "gappleChance";
         upgradeGappleChanceDetailsButtonDisplay.textContent = "X";
         upgradeGappleChanceDetailsDisplay.style.display = "flex";
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "gappleChance") {
+        const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.play();
         resetCurrentSide();
     }
 }
@@ -595,7 +610,7 @@ function upgradeDash() {
     if (gold >= dashUpgradePrice && dashLevel != 1) {
         gold -= dashUpgradePrice;
         dashLevel++;
-        dashValue = "Unlocked";
+        dashValue = "Enabled";
         notification("Dashing Unlocked!", "Press 'Shift + Direction' During Gameplay.");
         upgradeDashLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[9];
         const upgradeSound = new Audio("Audio/upgrade.wav");
@@ -604,7 +619,9 @@ function upgradeDash() {
         if (dashLevel == 1) {
             upgradeDashPriceDisplay.style.display = "none";
             upgradeDashPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-dash-unlock-button").style.display = "none";
         }
+        dashEnable();
     } else if (!(gold >= dashUpgradePrice) && dashLevel != 1) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -615,11 +632,15 @@ function upgradeDash() {
 function upgradeDashDetails() {
     if (currentSide != "dash") {
         resetCurrentSide();
+        const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.play();
         currentSide = "dash";
         upgradeDashDetailsButtonDisplay.textContent = "X";
         upgradeDashDetailsDisplay.style.display = "flex";
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "dash") {
+        const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.play();
         resetCurrentSide();
     }
 }
@@ -638,6 +659,7 @@ function upgradeSleep() {
         if (sleepLevel == 1) {
             upgradeSleepPriceDisplay.style.display = "none";
             upgradeSleepPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-sleep-unlock-button").style.display = "none";
         }
         mikuSleep();
     } else if (!(gem >= sleepUpgradePrice) && sleepLevel != 1) {
@@ -650,11 +672,15 @@ function upgradeSleep() {
 function upgradeSleepDetails() {
     if (currentSide != "sleep") {
         resetCurrentSide();
+        const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.play();
         currentSide = "sleep";
         upgradeSleepDetailsButtonDisplay.textContent = "X";
         upgradeSleepDetailsDisplay.style.display = "flex";
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "sleep") {
+        const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.play();
         resetCurrentSide();
     }
 }
@@ -671,6 +697,7 @@ function upgradeBonusGems() {
         if (bonusGemsLevel == 10) {
             upgradeBonusGemsPriceDisplay.style.display = "none";
             upgradeBonusGemsPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-bonus-gems-unlock-button").style.display = "none";
         }
         if (bonusGemsLevel == 10 && multiplyGemLevel == 10 && gemCompletitionMultiplier == 1) {
             gemCompletitionMultiplier = 2;
@@ -695,6 +722,7 @@ function upgradeMultiplyGem() {
         if (multiplyGemLevel == 10) {
             upgradeMultiplyGemPriceDisplay.style.display = "none";
             upgradeMultiplyGemPriceDisplay.parentNode.querySelector("img").style.display = "none";
+            document.getElementById("upgrade-multiply-gem-unlock-button").style.display = "none";
         }
         if (bonusGemsLevel == 10 && multiplyGemLevel == 10 && gemCompletitionMultiplier == 1) {
             gemCompletitionMultiplier = 2;
@@ -832,6 +860,9 @@ function drawApple() {
 }
 
 function notification(text, subtext) {
+    const notificationSound = new Audio("Audio/notification.wav");
+    notificationSound.volume = 0.6;
+    notificationSound.play();
     notificationContentDisplay[0].textContent = text;
     notificationContentDisplay[1].textContent = subtext;
 
@@ -843,7 +874,7 @@ function notification(text, subtext) {
         notificationBackgroundDisplay.style.background = "#00000000";
         notificationContentDisplay[0].style.opacity = "0%";
         notificationContentDisplay[1].style.opacity = "0%";
-    }, 2000);
+    }, 2500);
 }
 
 function checkForApple() {
@@ -916,7 +947,7 @@ function keyPressed() {
     fill(40);
     square(xPos, yPos, snakeHeadSize);
     if (scene == "day") {
-        if (dashValue == "Locked") {
+        if (dashValue != "Enabled") {
             switch (key) {
                 case "w":
                 case "W":
@@ -939,7 +970,7 @@ function keyPressed() {
                     xPos += snakeHeadSize;
                     break;
             }
-        } else if (dashValue == "Unlocked") {
+        } else if (dashValue == "Enabled") {
             temporaryXpos = ((canvasWidth - xPos - snakeHeadSize) / snakeHeadSize);
             temporaryYpos = ((canvasWidth - yPos - snakeHeadSize) / snakeHeadSize);
             dashed = true;
@@ -1051,6 +1082,7 @@ function keyPressed() {
 function hitSide(direction) {
     // Sound effects
     const mikuMikuBeamSound = new Audio("Audio/miku_miku_beam.wav");
+    if (mikuAsleep == true) mikuMikuBeamSound.volume = 0.15;
     mikuMikuBeamSound.play();
 
     // Different animation if Miku is asleep
@@ -1100,6 +1132,22 @@ function hitSide(direction) {
     updateDisplays();
 }
 
+function dashEnable() {
+    document.getElementById("enable-dash-button").style.display = "none";
+    document.getElementById("disable-dash-button").style.display = "block";
+    dashValue = "Enabled";
+
+    updateDisplays();
+}
+
+function dashDisable() {
+    document.getElementById("enable-dash-button").style.display = "block";
+    document.getElementById("disable-dash-button").style.display = "none";
+    dashValue = "Disabled";
+
+    updateDisplays();
+}
+
 function mikuSleep() {
     mikuAsleep = true;
     upgradeSleepMikuAsleepDisplay.style.display = "flex";
@@ -1135,6 +1183,13 @@ function beginDay() {
 
     fill(40);
     square(0, 0, 880);
+
+    // Tutorial if it's the first day
+    if (day == 1) {
+        document.getElementById("devmode-button").style.display = "none";
+        notification("Konichiwa!", "Use WASD to move around and collect apples.");
+        timeLeftSeconds = 15 * 60;
+    }
 
     // Change the scene
     scene = "day";
