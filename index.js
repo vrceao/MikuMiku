@@ -1008,18 +1008,26 @@ function keyPressed() {
             dashed = true;
             switch (key) {
                 case "w":
+                case "i":
+                case "I":
                 case "ArrowUp":
                     yPos -= snakeHeadSize;
                     break;
                 case "a":
+                case "j":
+                case "J":
                 case "ArrowLeft":
                     xPos -= snakeHeadSize;
                     break;
                 case "s":
+                case "k":
+                case "K":
                 case "ArrowDown":
                     yPos += snakeHeadSize;
                     break;
                 case "d":
+                case "l":
+                case "L":
                 case "ArrowRight":
                     xPos += snakeHeadSize;
                     break;
