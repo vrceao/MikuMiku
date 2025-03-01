@@ -313,19 +313,21 @@ let scene = "shop";
 let currentSide = "default";
 
 // Music
+const volumeButton = document.getElementById("volume-button");
 const dayMusic = new Audio("Audio/day_music.mp3");
 const shopMusic = new Audio("Audio/shop_music.mp3");
+volumeValue = 1;
 dayMusic.loop = true;
 shopMusic.loop = true;
-dayMusic.volume = 0.2;
-shopMusic.volume = 0.15;
+dayMusic.volume = 0.2 * volumeValue;
+shopMusic.volume = 0.15 * volumeValue;
 dayMusic.currentTime = 12.3;
 
 //! Switching Shop Types
 
 function nextShopMode() {
     const nextShopModeSound = new Audio("Audio/next_shop_mode.mp3");
-    nextShopModeSound.volume = 0.5;
+    nextShopModeSound.volume = 0.5 * volumeValue;
     nextShopModeSound.play();
 
     if (currentShop == "Gold") changeShopOther();
@@ -341,7 +343,7 @@ function nextShopMode() {
 
 function previousShopMode() {
     const previousShopModeSound = new Audio("Audio/previous_shop_mode.mp3");
-    previousShopModeSound.volume = 0.5;
+    previousShopModeSound.volume = 0.5 * volumeValue;
     previousShopModeSound.play();
 
     if (currentShop == "Gold" && !gemsUnlocked && !specialsUnlocked) changeShopOther();
@@ -454,6 +456,7 @@ function upgradeBonusGold() {
         bonusGoldUpgradePrice += (bonusGoldUpgradePrice * priceIncrease) / 100;
         upgradeBonusGoldLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(bonusGoldLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (bonusGoldLevel == 10) {
             upgradeBonusGoldPriceDisplay.style.display = "none";
@@ -479,6 +482,7 @@ function upgradeMultiplyGold() {
         multiplyGoldUpgradePrice += (multiplyGoldUpgradePrice * priceIncrease) / 100;
         upgradeMultiplyGoldLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(multiplyGoldLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (multiplyGoldLevel == 10) {
             upgradeMultiplyGoldPriceDisplay.style.display = "none";
@@ -504,6 +508,7 @@ function upgradeTimeLimit() {
         timeLimitUpgradePrice += (timeLimitUpgradePrice * priceIncrease) / 100;
         upgradeTimeLimitLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(timeLimitLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (timeLimitLevel == 10) {
             upgradeTimeLimitPriceDisplay.style.display = "none";
@@ -529,6 +534,7 @@ function upgradeExtraTime() {
         extraTimeUpgradePrice += (extraTimeUpgradePrice * priceIncrease) / 100;
         upgradeExtraTimeLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(extraTimeLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (extraTimeLevel == 10) {
             upgradeExtraTimePriceDisplay.style.display = "none";
@@ -539,7 +545,7 @@ function upgradeExtraTime() {
             document.getElementById("time-container").style.display = "none";
             notification("Extra Time Maxed!", "Time Limit has been removed.");
         }
-    } else if (!(gold >= extraTimeUpgradePrice) && extraTimeLevel != 10) {
+    } else if (!(gem >= extraTimeUpgradePrice) && extraTimeLevel != 10) {
         upgradeCurrencyType = "gem";
         notEnoughCurrency();
     }
@@ -554,6 +560,7 @@ function upgradeBonusApples() {
         bonusApplesUpgradePrice += (bonusApplesUpgradePrice * priceIncrease) / 100;
         upgradeBonusApplesLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(bonusApplesLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (bonusApplesLevel == 10) {
             upgradeBonusApplesPriceDisplay.style.display = "none";
@@ -575,6 +582,7 @@ function upgradeGappleChance() {
         gappleChanceUpgradePrice += (gappleChanceUpgradePrice * priceIncrease) / 100;
         upgradeGappleChanceLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(gappleChanceLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (gappleChanceLevel == 10) {
             upgradeGappleChancePriceDisplay.style.display = "none";
@@ -594,6 +602,7 @@ function upgradeGappleChanceDetails() {
     if (currentSide != "gappleChance") {
         resetCurrentSide();
         const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.volume = volumeValue;
         openDetails.play();
         currentSide = "gappleChance";
         upgradeGappleChanceDetailsButtonDisplay.textContent = "X";
@@ -601,6 +610,7 @@ function upgradeGappleChanceDetails() {
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "gappleChance") {
         const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.volume = volumeValue;
         closeDetails.play();
         resetCurrentSide();
     }
@@ -614,6 +624,7 @@ function upgradeDash() {
         notification("Dashing Unlocked!", "Press 'Shift + Direction' During Gameplay.");
         upgradeDashLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[9];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         document.getElementById("upgrade-dash-details-unlock-button").style.display = "none";
         if (dashLevel == 1) {
@@ -633,6 +644,7 @@ function upgradeDashDetails() {
     if (currentSide != "dash") {
         resetCurrentSide();
         const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.volume = volumeValue;
         openDetails.play();
         currentSide = "dash";
         upgradeDashDetailsButtonDisplay.textContent = "X";
@@ -640,6 +652,7 @@ function upgradeDashDetails() {
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "dash") {
         const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.volume = volumeValue;
         closeDetails.play();
         resetCurrentSide();
     }
@@ -653,6 +666,7 @@ function upgradeSleep() {
         notification("Miku is now asleep!", "You don't have to worry about losing your belongings.");
         upgradeSleepLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[9];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         document.getElementById("upgrade-sleep-unlock-button").style.display = "none";
         document.getElementById("upgrade-sleep-details-unlock-button").style.display = "none";
@@ -673,6 +687,7 @@ function upgradeSleepDetails() {
     if (currentSide != "sleep") {
         resetCurrentSide();
         const openDetails = new Audio("Audio/open_details.wav");
+        openDetails.volume = volumeValue;
         openDetails.play();
         currentSide = "sleep";
         upgradeSleepDetailsButtonDisplay.textContent = "X";
@@ -680,6 +695,7 @@ function upgradeSleepDetails() {
         defaultRightSideShopDisplay[0].style.display = "none";
     } else if (currentSide == "sleep") {
         const closeDetails = new Audio("Audio/close_details.wav");
+        closeDetails.volume = volumeValue;
         closeDetails.play();
         resetCurrentSide();
     }
@@ -693,6 +709,7 @@ function upgradeBonusGems() {
         bonusGemsUpgradePrice += (bonusGemsUpgradePrice * priceIncrease) / 100;
         upgradeBonusGemsLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(bonusGemsLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (bonusGemsLevel == 10) {
             upgradeBonusGemsPriceDisplay.style.display = "none";
@@ -718,6 +735,7 @@ function upgradeMultiplyGem() {
         multiplyGemUpgradePrice += (multiplyGemUpgradePrice * priceIncrease) / 100;
         upgradeMultiplyGemLevelDisplay.parentNode.parentNode.style.border = "4px solid " + upgradeColors[(multiplyGemLevel)];
         const upgradeSound = new Audio("Audio/upgrade.wav");
+        upgradeSound.volume = volumeValue;
         upgradeSound.play();
         if (multiplyGemLevel == 10) {
             upgradeMultiplyGemPriceDisplay.style.display = "none";
@@ -755,12 +773,14 @@ function notEnoughCurrency() {
         shopGoldDisplay.offsetHeight;
         shopGoldDisplay.style.animation = "currency-blink-red 200ms";
         const notEnoughGoldSound = new Audio("Audio/not_enough_gold.mp3");
+        notEnoughGoldSound.volume = volumeValue;
         notEnoughGoldSound.play();
     } else if (upgradeCurrencyType == "gem") {
         shopGemDisplay.style.animation = "none";
         shopGemDisplay.offsetHeight;
         shopGemDisplay.style.animation = "currency-blink-red 200ms";
         const notEnoughGemSound = new Audio("Audio/not_enough_gem.mp3");
+        notEnoughGemSound.volume = volumeValue;
         notEnoughGemSound.play();
     }
 }
@@ -861,7 +881,7 @@ function drawApple() {
 
 function notification(text, subtext) {
     const notificationSound = new Audio("Audio/notification.wav");
-    notificationSound.volume = 0.6;
+    notificationSound.volume = 0.6 * volumeValue;
     notificationSound.play();
     notificationContentDisplay[0].textContent = text;
     notificationContentDisplay[1].textContent = subtext;
@@ -898,12 +918,14 @@ function checkForApple() {
             // Different sound and gain
             if (applePositions[i][2] == "normal") {
                 const eatAppleSound = new Audio("Audio/eat_apple.wav");
+                eatAppleSound.volume = volumeValue;
                 eatAppleSound.play();
                 // Gold
                 gold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
                 earnedGold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
             } else if (applePositions[i][2] == "golden") {
                 const eatGappleSound = new Audio("Audio/eat_gapple.wav");
+                eatGappleSound.volume = volumeValue;
                 eatGappleSound.play();
                 // Gold
                 gold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
@@ -1082,7 +1104,8 @@ function keyPressed() {
 function hitSide(direction) {
     // Sound effects
     const mikuMikuBeamSound = new Audio("Audio/miku_miku_beam.wav");
-    if (mikuAsleep == true) mikuMikuBeamSound.volume = 0.15;
+    mikuMikuBeamSound.volume = 0.8 * volumeValue;
+    if (mikuAsleep == true) mikuMikuBeamSound.volume = 0.15 * volumeValue;
     mikuMikuBeamSound.play();
 
     // Different animation if Miku is asleep
@@ -1184,11 +1207,16 @@ function beginDay() {
     fill(40);
     square(0, 0, 880);
 
-    // Tutorial if it's the first day
+    // Tutorial if it's the first/second day
     if (day == 1) {
+        mikuAsleep = true;
         document.getElementById("devmode-button").style.display = "none";
-        notification("Konichiwa!", "Use WASD to move around and collect apples.");
-        timeLeftSeconds = 15 * 60;
+        notification("Konichiwa!", "Use WASD/Arrows to move around and collect apples.");
+        timeLeftSeconds += 5 * 60;
+    } else if (day == 2) {
+        mikuAsleep = false;
+        notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.");
+        timeLeftSeconds += 5 * 60;
     }
 
     // Change the scene
@@ -1198,6 +1226,7 @@ function beginDay() {
 
     // Sound effects
     const beginDaySound = new Audio("Audio/begin_day.ogg");
+    beginDaySound.volume = volumeValue;
     beginDaySound.play();
 
     // Music
@@ -1216,6 +1245,7 @@ function nextDay() {
 
     // Sound effects
     const nextDaySound = new Audio("Audio/next_day.ogg");
+    nextDaySound.volume = volumeValue;
     nextDaySound.play();
 
     // Music
@@ -1229,4 +1259,27 @@ function nextDay() {
     day++
 
     updateDisplays();
+}
+
+function volumeControl() {
+    if (volumeValue == 1) {
+        const disableVolumeSound = new Audio("Audio/disable_volume.wav");
+        disableVolumeSound.play();
+        volumeValue = 0;
+        volumeButton.style.background = "#601818";
+        volumeButton.style.border = "4px solid #b03030"
+        
+    } else if (volumeValue == 0) {
+        const enableVolumeSound = new Audio("Audio/enable_volume.wav");
+        enableVolumeSound.play();
+        volumeValue = 1;
+        volumeButton.style.background = "#206018";
+        volumeButton.style.border = "4px solid #40b030"
+    }
+    dayMusic.volume = 0.2 * volumeValue;
+    shopMusic.volume = 0.15 * volumeValue;
+}
+
+function dev() {
+    document.getElementById("devmode-button").style.display = "flex";
 }

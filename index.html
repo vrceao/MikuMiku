@@ -23,7 +23,10 @@
     </div>
     <div id="container">
 <!--! Shop -->
-<button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay()" style="color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
+<button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay(); document.getElementById('devmode-button').style.display = 'none';" style="position: absolute; display: none; color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
+<button onclick="volumeControl()" id="volume-button">
+    <img src="Assets/volume.png">
+</button>
         <div class="menu" id="shop">
             <div id="map">
 <!-- UPGRADE BONUS GOLD -->
