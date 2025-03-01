@@ -1,9 +1,11 @@
 /*
   > Next type of apples, after maxing out Golden Apple Chance upgrade.
-  > Make Gold Upgrades and Gem Upgrades category become invisible after maxing it out.
   > Add pitch variety to common sound effects.
   > Upgrade that costs both gold and gems.
   > Maybe try combining Time Limit and Extra Time into one element.
+
+  > Speedrun mode; Collect X apples in a period of time.
+  > Music Library; You can unlock different Miku songs that play in the background and switch between them.
 */
 
 //! Update Displays
@@ -973,21 +975,29 @@ function keyPressed() {
             switch (key) {
                 case "w":
                 case "W":
+                case "i":
+                case "I":
                 case "ArrowUp":
                     yPos -= snakeHeadSize;
                     break;
                 case "a":
                 case "A":
+                case "j":
+                case "J":
                 case "ArrowLeft":
                     xPos -= snakeHeadSize;
                     break;
                 case "s":
                 case "S":
+                case "k":
+                case "K":
                 case "ArrowDown":
                     yPos += snakeHeadSize;
                     break;
                 case "d":
                 case "D":
+                case "l":
+                case "L":
                 case "ArrowRight":
                     xPos += snakeHeadSize;
                     break;
@@ -1211,7 +1221,7 @@ function beginDay() {
     if (day == 1) {
         mikuAsleep = true;
         document.getElementById("devmode-button").style.display = "none";
-        notification("Konichiwa!", "Use WASD/Arrows to move around and collect apples.");
+        notification("Konichiwa!", "Use WASD/IJKL/Arrows to move around and collect apples.");
         timeLeftSeconds += 5 * 60;
     } else if (day == 2) {
         mikuAsleep = false;
