@@ -83,6 +83,11 @@ function updateDisplays() {
         upgradeMultiplyGemStatDisplay.textContent = "Current: x" + multiplyGemValue.toFixed(2) + " (+10%)";
         upgradeMultiplyGemPriceDisplay.textContent = "Price: " + multiplyGemUpgradePrice.toFixed(2);
         upgradeMultiplyGemLevelDisplay.textContent = "Level " + multiplyGemLevel + "/10";
+
+        statApplesCollectedValueDisplay.textContent = statApplesCollectedValue.toFixed(0);
+        statTilesMovedValueDisplay.textContent = statTilesMovedValue.toFixed(0);
+        statGoldCollectedValueDisplay.textContent = statGoldCollectedValue.toFixed(2);
+        statGemsCollectedValueDisplay.textContent = statGemsCollectedValue.toFixed(2);
     }
 }
 
@@ -159,6 +164,7 @@ const earnedGemDisplay = document.getElementById("earned-gem-display");
 
 // Main Sectors Display
 const shopDisplay = document.getElementById("shop");
+const shopMapDisplay = document.getElementById("map");
 const dayDisplay = document.getElementById("day");
 const snakeCanvasDisplay = document.getElementById("snake");
 
@@ -325,6 +331,26 @@ dayMusic.volume = 0.2 * volumeValue;
 shopMusic.volume = 0.15 * volumeValue;
 dayMusic.currentTime = 12.3;
 
+// Statistics
+const statisticsButton = document.getElementById("statistics-button");
+const statisticsDisplay = document.getElementById("statistics");
+let statisticsShowing = false;
+
+const statTimePlayedValueDisplay = document.getElementById("stat-time-played-value-display");
+const statApplesCollectedValueDisplay = document.getElementById("stat-apples-collected-value-display");
+const statTilesMovedValueDisplay = document.getElementById("stat-tiles-moved-value-display");
+const statGoldCollectedValueDisplay = document.getElementById("stat-gold-collected-value-display");
+const statGemsCollectedValueDisplay = document.getElementById("stat-gems-collected-value-display");
+
+let statTimePlayedValue = 0;
+let statApplesCollectedValue = 0;
+let statTilesMovedValue = 0;
+let statGoldCollectedValue = 0;
+let statGemsCollectedValue = 0;
+
+const allUpgradesTextDisplay = document.getElementById("all-upgrades-text");
+let statAllUpgradesValue = 0;
+
 //! Switching Shop Types
 
 function nextShopMode() {
@@ -450,6 +476,14 @@ function changeShopGems() {
 
 //! Buying Stuff and Details
 
+function checkAllUpgrades() {
+    if (goldCompletitionMultiplier == 2 && gemCompletitionMultiplier == 2 && extraTimeLevel == 10 && bonusApplesLevel == 10 && sleepLevel == 1 && dashLevel == 1 && statAllUpgradesValue == 0) {
+        statAllUpgradesValue = day;
+        allUpgradesTextDisplay.textContent = "You have bought all the upgrades in " + statAllUpgradesValue + " days.";
+        allUpgradesTextDisplay.style.display = "flex";
+    }
+}
+
 function upgradeBonusGold() {
     if (gold >= bonusGoldUpgradePrice && bonusGoldLevel != 10) {
         gold -= bonusGoldUpgradePrice;
@@ -469,6 +503,7 @@ function upgradeBonusGold() {
             goldCompletitionMultiplier = 2;
             notification("Gold Upgrades Maxed!", "Gold gain has been doubled.");
         }
+        checkAllUpgrades();
     } else if (!(gold >= bonusGoldUpgradePrice) && bonusGoldLevel != 10) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -495,6 +530,7 @@ function upgradeMultiplyGold() {
             goldCompletitionMultiplier = 2;
             notification("Gold Upgrades Maxed!", "Gold gain has been doubled.");
         }
+        checkAllUpgrades();
     } else if (!(gold >= multiplyGoldUpgradePrice) && multiplyGoldLevel != 10) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -521,6 +557,7 @@ function upgradeTimeLimit() {
             upgradeExtraTimeTile.style.display = "flex";
             notification("Time Limit upgrade maxed!", "Extra Time upgrade is now available.");
         }
+        checkAllUpgrades();
     } else if (!(gold >= timeLimitUpgradePrice) && timeLimitLevel != 10) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -547,6 +584,7 @@ function upgradeExtraTime() {
             document.getElementById("time-container").style.display = "none";
             notification("Extra Time Maxed!", "Time Limit has been removed.");
         }
+        checkAllUpgrades();
     } else if (!(gem >= extraTimeUpgradePrice) && extraTimeLevel != 10) {
         upgradeCurrencyType = "gem";
         notEnoughCurrency();
@@ -569,6 +607,7 @@ function upgradeBonusApples() {
             upgradeBonusApplesPriceDisplay.parentNode.querySelector("img").style.display = "none";
             document.getElementById("upgrade-bonus-apples-unlock-button").style.display = "none";
         }
+        checkAllUpgrades();
     } else if (!(gold >= bonusApplesUpgradePrice) && bonusApplesLevel != 10) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -593,6 +632,7 @@ function upgradeGappleChance() {
             document.getElementById("upgrade-gapple-chance-details-unlock-button").style.display = "none";
             upgradeGappleChanceDetailsButtonDisplay.style.width = "95%";
         }
+        checkAllUpgrades();
     } else if (!(gold >= gappleChanceUpgradePrice) && gappleChanceLevel != 10) {
         upgradeCurrencyType = "gold";
         notEnoughCurrency();
@@ -634,6 +674,7 @@ function upgradeDash() {
             upgradeDashPriceDisplay.parentNode.querySelector("img").style.display = "none";
             document.getElementById("upgrade-dash-unlock-button").style.display = "none";
         }
+        checkAllUpgrades();
         dashEnable();
     } else if (!(gold >= dashUpgradePrice) && dashLevel != 1) {
         upgradeCurrencyType = "gold";
@@ -677,6 +718,7 @@ function upgradeSleep() {
             upgradeSleepPriceDisplay.parentNode.querySelector("img").style.display = "none";
             document.getElementById("upgrade-sleep-unlock-button").style.display = "none";
         }
+        checkAllUpgrades();
         mikuSleep();
     } else if (!(gem >= sleepUpgradePrice) && sleepLevel != 1) {
         upgradeCurrencyType = "gem";
@@ -722,6 +764,7 @@ function upgradeBonusGems() {
             gemCompletitionMultiplier = 2;
             notification("Gem Upgrades Maxed!", "Gems gain has been doubled.");
         }
+        checkAllUpgrades();
     } else if (!(gem >= bonusGemsUpgradePrice) && bonusGemsLevel != 10) {
         upgradeCurrencyType = "gem";
         notEnoughCurrency();
@@ -748,6 +791,7 @@ function upgradeMultiplyGem() {
             gemCompletitionMultiplier = 2;
             notification("Gem Upgrades Maxed!", "Gems gain has been doubled.");
         }
+        checkAllUpgrades();
     } else if (!(gem >= multiplyGemUpgradePrice) && multiplyGemLevel != 10) {
         upgradeCurrencyType = "gem";
         notEnoughCurrency();
@@ -802,6 +846,9 @@ function setup() {
 }
 
 function draw() {
+    statTimePlayedValue += 1/3600;
+    statTimePlayedValueDisplay.textContent = statTimePlayedValue.toFixed(2) + "m";
+
     // The Grid
     stroke(0);
 
@@ -925,6 +972,7 @@ function checkForApple() {
                 // Gold
                 gold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
                 earnedGold += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
+                statGoldCollectedValue += (bonusGoldValue + 1) * multiplyGoldValue * goldCompletitionMultiplier;
             } else if (applePositions[i][2] == "golden") {
                 const eatGappleSound = new Audio("Audio/eat_gapple.wav");
                 eatGappleSound.volume = volumeValue;
@@ -932,9 +980,11 @@ function checkForApple() {
                 // Gold
                 gold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
                 earnedGold += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
+                statGoldCollectedValue += ((bonusGoldValue + 1) * multiplyGoldValue) * 2 * goldCompletitionMultiplier;
                 // Gems
                 gem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
                 earnedGem += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
+                statGemsCollectedValue += (bonusGemsValue + 1) * multiplyGemValue * gemCompletitionMultiplier;
                 if (!gemsUnlocked) {
                     gemsUnlocked = true;
                     unlockedGemsOnDay = day;
@@ -960,6 +1010,8 @@ function checkForApple() {
             earnedGoldDisplay.style.animation = "none";
             earnedGoldDisplay.offsetHeight;
             earnedGoldDisplay.style.animation = "currency-blink-yellow 200ms";
+
+            statApplesCollectedValue++;
 
             updateDisplays()
         }
@@ -1075,7 +1127,7 @@ function keyPressed() {
             }
             dashed = false;
         }
-        console.log("Current Position:", xPos, yPos, "(", xPos / snakeHeadSize, yPos / snakeHeadSize, ")");
+        statTilesMovedValue++;
 
         if (xPos >= canvasWidth) {
             xPos -= snakeHeadSize;
@@ -1170,6 +1222,9 @@ function hitSide(direction) {
             earnedGem -= lostGem + 0.5 * day - 0.5 * unlockedGemsOnDay + 0.5;
         }
     }
+
+    statTilesMovedValue--;
+
     updateDisplays();
 }
 
@@ -1252,6 +1307,13 @@ function beginDay() {
     dayMusic.currentTime = 12.3;
     dayMusic.play();
 
+    // Reset statistics display
+    statisticsShowing = false;
+    shopMapDisplay.style.display = "flex";
+    statisticsDisplay.style.display = "none";
+    statisticsButton.style.background = "#206018";
+    statisticsButton.style.border = "4px solid #40b030"
+
     updateDisplays();
 }
 
@@ -1281,21 +1343,43 @@ function nextDay() {
 
 function volumeControl() {
     if (volumeValue == 1) {
-        const disableVolumeSound = new Audio("Audio/disable_volume.wav");
-        disableVolumeSound.play();
+        const controlButtonSound = new Audio("Audio/control_button_off.wav");
+        controlButtonSound.play();
         volumeValue = 0;
         volumeButton.style.background = "#601818";
         volumeButton.style.border = "4px solid #b03030"
         
     } else if (volumeValue == 0) {
-        const enableVolumeSound = new Audio("Audio/enable_volume.wav");
-        enableVolumeSound.play();
+        const controlButtonSound = new Audio("Audio/control_button_on.wav");
+        controlButtonSound.play();
         volumeValue = 1;
         volumeButton.style.background = "#206018";
         volumeButton.style.border = "4px solid #40b030"
     }
     dayMusic.volume = 0.2 * volumeValue;
     shopMusic.volume = 0.15 * volumeValue;
+}
+
+function statisticsControl() {
+    if (statisticsShowing) {
+        const controlButtonSound = new Audio("Audio/control_button_on.wav");
+        controlButtonSound.volume = volumeValue;
+        controlButtonSound.play();
+        statisticsShowing = false;
+        shopMapDisplay.style.display = "flex";
+        statisticsDisplay.style.display = "none";
+        statisticsButton.style.background = "#206018";
+        statisticsButton.style.border = "4px solid #40b030"
+    } else {
+        const controlButtonSound = new Audio("Audio/control_button_off.wav");
+        controlButtonSound.volume = volumeValue;
+        controlButtonSound.play();
+        statisticsShowing = true;
+        shopMapDisplay.style.display = "none";
+        statisticsDisplay.style.display = "flex";
+        statisticsButton.style.background = "#601818";
+        statisticsButton.style.border = "4px solid #b03030"
+    }
 }
 
 function dev() {

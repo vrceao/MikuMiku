@@ -16,18 +16,88 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay(); document.getElementById('devmode-button').style.display = 'none';" style="position: absolute; display: none; color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
 <!--! Notifications -->
     <div id="notification-background">
         <p class="notification-content" style="font-weight: bold;">Something unlocked bitch</p>
         <p class="notification-content">Something unlocked bitch</p>
     </div>
+    <div id="control-buttons">
+        <button onclick="volumeControl()" id="volume-button">
+            <img src="Assets/volume.png">
+        </button>
+        <button onclick="statisticsControl()" id="statistics-button">
+            <img src="Assets/trophy.png">
+        </button>
+    </div>
     <div id="container">
 <!--! Shop -->
-<button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay(); document.getElementById('devmode-button').style.display = 'none';" style="position: absolute; display: none; color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
-<button onclick="volumeControl()" id="volume-button">
-    <img src="Assets/volume.png">
-</button>
         <div class="menu" id="shop">
+            <div id="statistics">
+                <div id="statistics-header">
+                    <img src="Assets/apple.png">
+                    <p>Statistics</p>
+                    <img src="Assets/gapple.png">
+                </div>
+                <div id="statistics-content">
+                    <div class="statistics-entry">
+                        <div class="statistics-category">
+                            <img src="Assets/upgrade_time_limit.png">
+                        </div>
+                        <div class="statistics-name">
+                            <p>Time Played</p>
+                        </div>
+                        <div class="statistics-value">
+                            <p id="stat-time-played-value-display">0s</p>
+                        </div>
+                    </div>
+                    <div class="statistics-entry">
+                        <div class="statistics-category">
+                            <img src="Assets/apple.png">
+                        </div>
+                        <div class="statistics-name">
+                            <p>Apples Collected</p>
+                        </div>
+                        <div class="statistics-value">
+                            <p id="stat-apples-collected-value-display">0</p>
+                        </div>
+                    </div>
+                    <div class="statistics-entry">
+                        <div class="statistics-category">
+                            <img src="Assets/upgrade_dash.png">
+                        </div>
+                        <div class="statistics-name">
+                            <p>Tiles Moved</p>
+                        </div>
+                        <div class="statistics-value">
+                            <p id="stat-tiles-moved-value-display">0</p>
+                        </div>
+                    </div>
+                    <div class="statistics-entry">
+                        <div class="statistics-category">
+                            <img src="Assets/gold.png">
+                        </div>
+                        <div class="statistics-name">
+                            <p>Total Gold Collected</p>
+                        </div>
+                        <div class="statistics-value">
+                            <p id="stat-gold-collected-value-display">0</p>
+                        </div>
+                    </div>
+                    <div class="statistics-entry">
+                        <div class="statistics-category">
+                            <img src="Assets/gem.png">
+                        </div>
+                        <div class="statistics-name">
+                            <p>Total Gems Collected</p>
+                        </div>
+                        <div class="statistics-value">
+                            <p id="stat-gems-collected-value-display">0</p>
+                        </div>
+                    </div>
+                    <p id="all-upgrades-text">You have bought all the upgrades in 0 days.</p>
+                </div>
+            </div>
             <div id="map">
 <!-- UPGRADE BONUS GOLD -->
                 <div class="tile" id="upgrade-bonus-gold-tile">

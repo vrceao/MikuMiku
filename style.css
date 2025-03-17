@@ -112,25 +112,135 @@ img {
     transition: 500ms;
 }
 
-/* Volume */
+/* Control Buttons */
 
-#volume-button {
+#control-buttons {
     position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
+    width: 80px;
 
-    background: linear-gradient(to top, #206018, #307028);
-    border: 4px solid #40b030;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#volume-button:hover {
+#control-buttons > button {
+    width: 64px;
+    height: 64px;
+    margin-top: 8px;
+}
+
+#control-buttons > button:hover {
     filter: brightness(0.75);
     cursor: pointer;
 }
 
-#volume-button img {
+#control-buttons > button > img {
     width: 75%;
+}
+
+#volume-button {
+    background: #206018;
+    border: 4px solid #40b030;
+}
+
+#statistics-button {
+    background: #206018;
+    border: 4px solid #40b030;
+}
+
+/* Statistics */
+
+#statistics {
+    width: 80%;
+    height: 100%;
+
+    display: none;
+    flex-direction: column;
+}
+
+#statistics-header {
+    width: 100%;
+    height: 10%;
+
+    border-bottom: 2px solid #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#statistics-header > p {
+    font-size: 64px;
+    margin: 32px;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+
+#statistics-header > img {
+    height: 80%;
+}
+
+#statistics-content {
+    width: 100%;
+    height: 90%;
+
+    border-top: 2px solid #242424;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statistics-entry {
+    width: 80%;
+    height: 96px;
+    margin-top: 16px;
+
+    background: #323232;
+    border-top: 4px solid #242424;
+    border-bottom: 4px solid #242424;
+    border-left: 2px solid #242424;
+    border-right: 2px solid #242424;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.statistics-entry > div {
+    height: 100%;
+
+    font-size: 32px;
+    font-family: "Roboto";
+    border-left: 2px solid #242424;
+    border-right: 2px solid #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistics-entry > div > img {
+    width: 64px;
+}
+
+.statistics-category {
+    width: 10%;
+}
+
+.statistics-name {
+    width: 30%;
+}
+
+.statistics-value {
+    width: 60%;
+}
+
+#all-upgrades-text {
+    display: none;
+    margin-top: 16px;
+
+    font-size: 32px;
+    font-family: "Roboto";
 }
 
 /*! Sidebar */
