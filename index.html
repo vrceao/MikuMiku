@@ -6,17 +6,15 @@
     <title>MikuMiku</title>
     <link rel="icon" href="Assets/icon.png">
     <link rel="stylesheet" href="style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button onclick="gold = 99999; gem = 99999; day++; updateDisplays(); notification('done'); beginDay(); document.getElementById('devmode-button').style.display = 'none';" style="position: absolute; display: none; color: black; opacity: 10%;" id="devmode-button">click this to enable dev mode</button>
 <!--! Notifications -->
     <div id="notification-background">
         <p class="notification-content" style="font-weight: bold;">Something unlocked bitch</p>
@@ -26,13 +24,32 @@
         <button onclick="volumeControl()" id="volume-button">
             <img src="Assets/volume.png">
         </button>
-        <button onclick="statisticsControl()" id="statistics-button">
+        <button onclick="statisticsControl()" id="statistics-button" style="display: none;">
             <img src="Assets/trophy.png">
         </button>
     </div>
     <div id="container">
+<!--! Start -->
+        <div class="menu" id="start-menu">
+            <div id="start-menu-left">
+                <img id="reimu-bounce" src="Assets/reimu_bounce.gif" draggable="false">
+            </div>
+            <div id="start-menu-right">
+                <div id="start-menu-panel-container">
+                    <img id="start-menu-panel" src="Assets/start_menu_panel.png">
+                </div>
+                <div id="start-menu-right-sub">
+                    <div id="start-menu-title-container">
+                        <p id="start-menu-title">MikuMiku</p>
+                    </div>
+                    <div id="start-menu-buttons">
+                        <button onclick="startGame(`normal`)">New Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 <!--! Shop -->
-        <div class="menu" id="shop">
+        <div class="menu" id="shop" style="display: none;">
             <div id="statistics">
                 <div id="statistics-header">
                     <img src="Assets/apple.png">
@@ -417,7 +434,7 @@
                     <p class="upgrade-details-title">Golden apples</p>
                     <img src="Assets/gapple.png" draggable="false">
                     <p class="upgrade-details-description">Golden apples overwrite some of the normal apples. Frequency depends on their upgrade level.</p>
-                    <p class="upgrade-details-description">They yield double the gold and 1 gem by default.</p>
+                    <p class="upgrade-details-description">They yield double the gold and 1 gem each.</p>
                     <button onclick="upgradeGappleChance()" id="upgrade-gapple-chance-details-unlock-button">Upgrade</button>
                 </div>
 

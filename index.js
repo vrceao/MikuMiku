@@ -4,6 +4,7 @@
   > Upgrade that costs both gold and gems.
   > Maybe try combining Time Limit and Extra Time into one element.
 
+  > Start menu
   > Speedrun mode; Collect X apples in a period of time.
   > Music Library; You can unlock different Miku songs that play in the background and switch between them.
 */
@@ -11,7 +12,7 @@
 //! Update Displays
 
 onload = function() {
-    notification("Ohayo!", "Press 'Begin Day' to start :3");
+    notification("Click for Reimu", "", 1000);
     changeShopGold();
     updateDisplays();
 };
@@ -164,8 +165,9 @@ const earnedGemDisplay = document.getElementById("earned-gem-display");
 
 // Main Sectors Display
 const shopDisplay = document.getElementById("shop");
-const shopMapDisplay = document.getElementById("map");
 const dayDisplay = document.getElementById("day");
+const startMenuDisplay = document.getElementById("start-menu");
+const shopMapDisplay = document.getElementById("map");
 const snakeCanvasDisplay = document.getElementById("snake");
 
 // Day Display
@@ -317,18 +319,23 @@ const notificationContentDisplay = document.getElementsByClassName("notification
 
 // Others
 let day = 1;
-let scene = "shop";
+let scene;
 let currentSide = "default";
+let startMenuVisible = true;
+let changeShopCooldown = false;
 
 // Music
 const volumeButton = document.getElementById("volume-button");
 const dayMusic = new Audio("Audio/day_music.mp3");
 const shopMusic = new Audio("Audio/shop_music.mp3");
+const startMenuMusic = new Audio("Audio/reimu_bounce.mp3");
 volumeValue = 1;
 dayMusic.loop = true;
 shopMusic.loop = true;
+startMenuMusic.loop = true;
 dayMusic.volume = 0.2 * volumeValue;
 shopMusic.volume = 0.15 * volumeValue;
+startMenuMusic.volume = 0.1 * volumeValue
 dayMusic.currentTime = 12.3;
 
 // Statistics
@@ -846,8 +853,12 @@ function setup() {
 }
 
 function draw() {
+    if (startMenuVisible == true) {
+        startMenuMusic.play();
+        startMenuMusic.volume = 0.1 * volumeValue;
+    }
     statTimePlayedValue += 1/3600;
-    statTimePlayedValueDisplay.textContent = statTimePlayedValue.toFixed(2) + "m";
+    statTimePlayedValueDisplay.textContent = `${Math.floor(statTimePlayedValue)} m, ${Math.floor((statTimePlayedValue * 60) % 60)} s`;
 
     // The Grid
     stroke(0);
@@ -928,10 +939,13 @@ function drawApple() {
     console.log("Next apple position: " + appleX / snakeHeadSize + ", " + appleY / snakeHeadSize)
 }
 
-function notification(text, subtext) {
+function notification(text, subtext, length) {
     const notificationSound = new Audio("Audio/notification.wav");
-    notificationSound.volume = 0.6 * volumeValue;
-    notificationSound.play();
+    notificationSound.volume = 0.25 * volumeValue;
+    if (!startMenuVisible) {
+        notificationSound.play();
+        length = 2500;
+    }
     notificationContentDisplay[0].textContent = text;
     notificationContentDisplay[1].textContent = subtext;
 
@@ -943,7 +957,7 @@ function notification(text, subtext) {
         notificationBackgroundDisplay.style.background = "#00000000";
         notificationContentDisplay[0].style.opacity = "0%";
         notificationContentDisplay[1].style.opacity = "0%";
-    }, 2500);
+    }, length);
 }
 
 function checkForApple() {
@@ -1155,7 +1169,7 @@ function keyPressed() {
 
         foundApple = false;
         checkForApple();
-    } else if (scene == "shop") {
+    } else if (scene == "shop" && changeShopCooldown == false) {
         switch (key) {
             case "a":
             case "A":
@@ -1283,37 +1297,36 @@ function beginDay() {
     // Tutorial if it's the first/second day
     if (day == 1) {
         mikuAsleep = true;
-        document.getElementById("devmode-button").style.display = "none";
-        notification("Konichiwa!", "Use WASD/IJKL/Arrows to move around and collect apples.");
+        notification("Konichiwa!", "Use WASD/IJKL to move around and collect apples.");
         timeLeftSeconds += 5 * 60;
     } else if (day == 2) {
         mikuAsleep = false;
         notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.");
         timeLeftSeconds += 5 * 60;
     }
-
+    
     // Change the scene
     scene = "day";
     shopDisplay.style.display = "none";
     dayDisplay.style.display = "flex";
-
+    
     // Sound effects
     const beginDaySound = new Audio("Audio/begin_day.ogg");
     beginDaySound.volume = volumeValue;
     beginDaySound.play();
-
+    
     // Music
     shopMusic.pause();
     dayMusic.currentTime = 12.3;
     dayMusic.play();
-
+    
     // Reset statistics display
     statisticsShowing = false;
     shopMapDisplay.style.display = "flex";
     statisticsDisplay.style.display = "none";
     statisticsButton.style.background = "#206018";
     statisticsButton.style.border = "4px solid #40b030"
-
+    
     updateDisplays();
 }
 
@@ -1322,6 +1335,8 @@ function nextDay() {
     scene = "shop";
     shopDisplay.style.display = "flex";
     dayDisplay.style.display = "none";
+
+    if (day == 1) statisticsButton.style.display = "block";
 
     // Sound effects
     const nextDaySound = new Audio("Audio/next_day.ogg");
@@ -1337,6 +1352,11 @@ function nextDay() {
     earnedGold = 0;
     earnedGem = 0;
     day++
+
+    changeShopCooldown = true;
+    setTimeout(() => {
+        changeShopCooldown = false;
+    }, 500);
 
     updateDisplays();
 }
@@ -1382,6 +1402,11 @@ function statisticsControl() {
     }
 }
 
-function dev() {
-    document.getElementById("devmode-button").style.display = "flex";
+function startGame(mode) {
+    if (mode == "normal") {
+        startMenuDisplay.style.display = "none";
+        startMenuVisible = false;
+        startMenuMusic.pause();
+        beginDay();
+    }
 }
