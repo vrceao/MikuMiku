@@ -17,15 +17,15 @@
 <body>
 <!--! Notifications -->
     <div id="notification-background">
-        <p class="notification-content" style="font-weight: bold;">Something unlocked bitch</p>
-        <p class="notification-content">Something unlocked bitch</p>
+        <p class="notification-content" style="font-weight: bold;">Something unlocked</p>
+        <p class="notification-content">Something unlocked 2</p>
     </div>
     <div id="control-buttons">
         <button onclick="volumeControl()" id="volume-button">
-            <img src="Assets/volume.png">
+            <img src="Assets/volume.png" draggable="false">
         </button>
         <button onclick="statisticsControl()" id="statistics-button" style="display: none;">
-            <img src="Assets/trophy.png">
+            <img src="Assets/trophy.png" draggable="false">
         </button>
     </div>
     <div id="container">
@@ -43,13 +43,16 @@
                         <p id="start-menu-title">MikuMiku</p>
                     </div>
                     <div id="start-menu-buttons">
-                        <button onclick="startGame(`normal`)">New Game</button>
+                        <button onclick="startGame(`new`)">New Game</button>
+                        <button onclick="startGame(`load`)">Last Save</button>
+                        <!-- <button onclick="startGame(`speedrun`)">Speedrun Mode (Soon)</button> -->
                     </div>
                 </div>
             </div>
         </div>
-<!--! Shop -->
+        <img src="Assets/background.png" style="position: absolute; opacity: 30%; pointer-events: none; z-index: 1;">
         <div class="menu" id="shop" style="display: none;">
+<!--! Statistics -->
             <div id="statistics">
                 <div id="statistics-header">
                     <img src="Assets/apple.png">
@@ -113,10 +116,15 @@
                         </div>
                     </div>
                     <p id="all-upgrades-text">You have bought all the upgrades in 0 days.</p>
+                    <button onclick="saveProgress(true)" id="save-button">
+                        <img src="Assets/save.png">
+                        <p>Save Progress</p>
+                    </button>
                 </div>
             </div>
+<!--! Shop -->
             <div id="map">
-<!-- UPGRADE BONUS GOLD -->
+                <!-- UPGRADE BONUS GOLD -->
                 <div class="tile" id="upgrade-bonus-gold-tile">
                     <div class="tile-image">
                         <div class="tile-level-container">

@@ -79,11 +79,17 @@
 #container {
     width: 100vw;
     height: 100vh;
-    background: #323232;
+
+    background: black;
 }
 
 img {
     user-select: none;
+}
+
+#shop, #day {
+    position: absolute;
+    z-index: 2;
 }
 
 /* Notifications */
@@ -117,6 +123,7 @@ img {
 
 #control-buttons {
     position: absolute;
+    z-index: 7;
     width: 80px;
 
     display: flex;
@@ -149,6 +156,39 @@ img {
     border: 4px solid #40b030;
 }
 
+#save-button {
+    height: 64px;
+    margin-top: 16px;
+
+    background: #206018;
+    border: 4px solid #40b030;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#save-button:hover {
+    filter: brightness(0.75);
+    cursor: pointer;
+}
+
+#save-button > img {
+    height: 80%;
+    margin-left: 8px;
+    margin-right: 4px;
+}
+
+#save-button > p {
+    margin-left: 4px;
+    margin-right: 8px;
+
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Roboto";
+}
+
 /* Statistics */
 
 #statistics {
@@ -162,8 +202,6 @@ img {
 #statistics-header {
     width: 100%;
     height: 10%;
-
-    border-bottom: 2px solid #242424;
 
     display: flex;
     align-items: center;
@@ -184,8 +222,6 @@ img {
 #statistics-content {
     width: 100%;
     height: 90%;
-
-    border-top: 2px solid #242424;
 
     display: flex;
     flex-direction: column;
