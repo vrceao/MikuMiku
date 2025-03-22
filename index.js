@@ -358,7 +358,12 @@ const statGemsCollectedValueDisplay = document.getElementById("stat-gems-collect
 
 const allUpgradesTextDisplay = document.getElementById("all-upgrades-text");
 
-// Saving
+// Saving & Start menu
+const modeDetails = document.getElementById("mode-details");
+const modeDetailsText = document.getElementById("mode-details-text");
+
+const autoSaveButton = document.getElementById("auto-save-button");
+let autoSaving = true;
 let savedProgress;
 let objectsToLoad;
 
@@ -492,6 +497,7 @@ function checkAllUpgrades() {
         gs.statAllUpgradesValue = gs.day;
         allUpgradesTextDisplay.textContent = "You have bought all the upgrades in " + gs.statAllUpgradesValue + " days.";
         allUpgradesTextDisplay.style.display = "flex";
+        if (speedrunMode) notification("Speedrun Mode Finished!", `You have maxed all the upgrades in ${gs.day} days.`);
     }
 }
 
@@ -944,9 +950,9 @@ function drawApple() {
 function notification(text, subtext, length) {
     const notificationSound = new Audio("Audio/notification.wav");
     notificationSound.volume = 0.25 * volumeValue;
+    notificationSound.play();
 
-    if (!startMenuVisible) {
-        notificationSound.play();
+    if (length == undefined) {
         length = 2500;
     }
     notificationContentDisplay[0].textContent = text;
@@ -1300,12 +1306,16 @@ function beginDay() {
     // Tutorial if it's the first/second day
     if (gs.day == 1) {
         gs.mikuAsleep = true;
-        notification("Konichiwa!", "Use WASD/IJKL to move around and collect apples.");
         timeLeftSeconds += 5 * 60;
     } else if (gs.day == 2) {
         gs.mikuAsleep = false;
-        notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.");
         timeLeftSeconds += 5 * 60;
+    }
+
+    if (gs.day == 1 && !speedrunMode) {
+        notification("Konichiwa!", "Use WASD/IJKL to move around and collect apples.");
+    } else if (gs.day == 2 && !speedrunMode) {
+        notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.");
     }
 
     statisticsButton.style.display = "none";
@@ -1363,7 +1373,7 @@ function nextDay() {
         changeShopCooldown = false;
     }, 500);
 
-    saveProgress(false);
+    if (autoSaving && !speedrunMode) saveProgress(false);
 
     updateDisplays();
 }
@@ -1375,7 +1385,6 @@ function volumeControl() {
         volumeValue = 0;
         volumeButton.style.background = "#601818";
         volumeButton.style.border = "4px solid #b03030"
-        
     } else if (volumeValue == 0) {
         const controlButtonSound = new Audio("Audio/control_button_on.wav");
         controlButtonSound.play();
@@ -1418,21 +1427,71 @@ function startGame(mode) {
         beginDay();
     }
     if (mode == "load") {
-        objectsToLoad = JSON.parse(localStorage.getItem("gameSave") || {})
-        for (const key of Object.keys(objectsToLoad)) gs[key] = objectsToLoad[key];
-        gs.day--;
-        nextDay();
-        notification("Successfully loaded!", "Last save from your browser has been loaded.");
+        loadGame();
     }
     if (mode == "speedrun") {
         speedrunMode = true;
+        autoSaveButton.style.display = "none";
         beginDay();
     }
 }
 
+function loadGame() {
+    objectsToLoad = JSON.parse(localStorage.getItem("gameSave") || {})
+    for (const key of Object.keys(objectsToLoad)) gs[key] = objectsToLoad[key];
+    gs.day--;
+    nextDay();
+    notification("Successfully loaded!", "Last save from your browser has been loaded.");
+}
+
 function saveProgress(manual) {
     if (scene == "day") notification("Can't save!", "You can't save during the day.");
-
+    
     localStorage.setItem("gameSave", JSON.stringify(gs));
     if (manual == true) notification("Progress saved!", "Your progress should be saved within your browser now.");
+    else if (manual == false) notification("Saved!", "", 500);
 }
+
+function autoSave() {
+    if (autoSaving) {
+        autoSaving = false;
+        const controlButtonSound = new Audio("Audio/control_button_off.wav");
+        controlButtonSound.volume = volumeValue;
+        controlButtonSound.play();
+        autoSaveButton.style.background = "#601818";
+        autoSaveButton.style.border = "4px solid #b03030";
+        notification("Auto Saving Disabled!", "", 300);
+    } else {
+        autoSaving = true;
+        const controlButtonSound = new Audio("Audio/control_button_off.wav");
+        controlButtonSound.volume = volumeValue;
+        controlButtonSound.play();
+        autoSaveButton.style.background = "#206018";
+        autoSaveButton.style.border = "4px solid #40b030";
+        notification("Auto Saving Enabled!", "", 300);
+    }
+}
+
+function modeDetailsShow() {
+    modeDetails.style.display = "flex";
+}
+
+function modeDetailsDisappear() {
+    modeDetails.style.display = "none";
+}
+
+document.getElementById("new-game-button").addEventListener("mouseover", function() {modeDetailsShow();
+    modeDetailsText.textContent = "Play the normal mode to experience all the features. This mode is always up-to-date.";
+});
+
+document.getElementById("load-game-button").addEventListener("mouseover", function() {modeDetailsShow();
+    modeDetailsText.textContent = "Load the progress from the last save in your browser.";
+});
+
+document.getElementById("speedrun-mode-button").addEventListener("mouseover", function() {modeDetailsShow();
+    modeDetailsText.textContent = "Try your best to buy all the upgrades from the first version as fast as possible."
+});
+
+document.getElementById("new-game-button").addEventListener("mouseout", function() {modeDetailsDisappear();});
+document.getElementById("load-game-button").addEventListener("mouseout", function() {modeDetailsDisappear();});
+document.getElementById("speedrun-mode-button").addEventListener("mouseout", function() {modeDetailsDisappear();});

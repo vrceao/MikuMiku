@@ -1,5 +1,17 @@
 /*! Animations (js) */
 
+@keyframes mode-details-disappear {
+    0% { opacity: 100% }
+    100% { opacity: 0% }
+}
+
+@keyframes mode-details-show {
+    0% { opacity: 0% }
+    100% { opacity: 100% }
+}
+
+
+
 @keyframes currency-blink-red {
     0% { color: #ffffff }
     50% { color: #ff0000 }
@@ -147,6 +159,11 @@ img {
 }
 
 #volume-button {
+    background: #206018;
+    border: 4px solid #40b030;
+}
+
+#auto-save-button {
     background: #206018;
     border: 4px solid #40b030;
 }
@@ -832,4 +849,32 @@ img {
 
     color: #ff1818;
     border: 4px solid #ff2828;
+}
+
+#mode-details-container {
+    position: absolute;
+    z-index: 2;
+    width: 30%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+#mode-details {
+    width: 384px;
+    height: 192px;
+    margin: 16px;
+    padding: 16px;
+    
+    background: linear-gradient(to right, #ffcbcb, #ffd8d8, #ffcbcb);
+    border: 4px solid #ff9090;
+    border-radius: 16px;
+}
+
+#mode-details-text {
+    font-size: 32px;
+    font-family: "Lato";
+    font-weight: bold;
+    color: #ff7070;
 }

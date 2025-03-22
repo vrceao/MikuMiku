@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-<!--! Notifications -->
+<!--! Notifications & Control Buttons -->
     <div id="notification-background">
         <p class="notification-content" style="font-weight: bold;">Something unlocked</p>
         <p class="notification-content">Something unlocked 2</p>
@@ -23,6 +23,9 @@
     <div id="control-buttons">
         <button onclick="volumeControl()" id="volume-button">
             <img src="Assets/volume.png" draggable="false">
+        </button>
+        <button onclick="autoSave()" id="auto-save-button">
+            <img src="Assets/save.png" draggable="false">
         </button>
         <button onclick="statisticsControl()" id="statistics-button" style="display: none;">
             <img src="Assets/trophy.png" draggable="false">
@@ -32,6 +35,11 @@
 <!--! Start -->
         <div class="menu" id="start-menu">
             <div id="start-menu-left">
+                <div id="mode-details-container">
+                    <div id="mode-details" style="display: none;">
+                        <p id="mode-details-text"></p>
+                    </div>
+                </div>
                 <img id="reimu-bounce" src="Assets/reimu_bounce.gif" draggable="false">
             </div>
             <div id="start-menu-right">
@@ -43,9 +51,9 @@
                         <p id="start-menu-title">MikuMiku</p>
                     </div>
                     <div id="start-menu-buttons">
-                        <button onclick="startGame(`new`)">New Game</button>
-                        <button onclick="startGame(`load`)">Last Save</button>
-                        <!-- <button onclick="startGame(`speedrun`)">Speedrun Mode (Soon)</button> -->
+                        <button onclick="startGame(`new`)" id="new-game-button">New Game</button>
+                        <button onclick="startGame(`load`)" id="load-game-button">Last Save</button>
+                        <button onclick="startGame(`speedrun`)" id="speedrun-mode-button">Speedrun Mode</button>
                     </div>
                 </div>
             </div>
@@ -117,7 +125,6 @@
                     </div>
                     <p id="all-upgrades-text">You have bought all the upgrades in 0 days.</p>
                     <button onclick="saveProgress(true)" id="save-button">
-                        <img src="Assets/save.png">
                         <p>Save Progress</p>
                     </button>
                 </div>
