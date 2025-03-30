@@ -16,6 +16,7 @@
 </head>
 <body>
 <!--! Notifications & Control Buttons -->
+    <p id="top-screen-message"></p>
     <div id="notification-background">
         <p class="notification-content" style="font-weight: bold;">Something unlocked</p>
         <p class="notification-content">Something unlocked 2</p>
@@ -44,7 +45,7 @@
             </div>
             <div id="start-menu-right">
                 <div id="start-menu-panel-container">
-                    <img id="start-menu-panel" src="Assets/start_menu_panel.png">
+                    <img id="start-menu-panel" src="Assets/start_menu_panel.png" draggable="false">
                 </div>
                 <div id="start-menu-right-sub">
                     <div id="start-menu-title-container">
@@ -58,19 +59,22 @@
                 </div>
             </div>
         </div>
-        <img src="Assets/background.png" style="position: absolute; opacity: 30%; pointer-events: none; z-index: 1;">
+        <div id="backgrounds">
+            <img src="Assets/background.png" id="main-background" draggable="false">
+            <img src="Assets/game_menu_panel.png" id="main-panel-background" draggable="false">
+        </div>
         <div class="menu" id="shop" style="display: none;">
 <!--! Statistics -->
             <div id="statistics">
                 <div id="statistics-header">
-                    <img src="Assets/apple.png">
+                    <img src="Assets/apple.png" draggable="false">
                     <p>Statistics</p>
-                    <img src="Assets/gapple.png">
+                    <img src="Assets/gapple.png" draggable="false">
                 </div>
                 <div id="statistics-content">
                     <div class="statistics-entry">
                         <div class="statistics-category">
-                            <img src="Assets/upgrade_time_limit.png">
+                            <img src="Assets/upgrade_time_limit.png" draggable="false">
                         </div>
                         <div class="statistics-name">
                             <p>Time Played</p>
@@ -81,7 +85,7 @@
                     </div>
                     <div class="statistics-entry">
                         <div class="statistics-category">
-                            <img src="Assets/apple.png">
+                            <img src="Assets/apple.png" draggable="false">
                         </div>
                         <div class="statistics-name">
                             <p>Apples Collected</p>
@@ -92,7 +96,7 @@
                     </div>
                     <div class="statistics-entry">
                         <div class="statistics-category">
-                            <img src="Assets/upgrade_dash.png">
+                            <img src="Assets/upgrade_dash.png" draggable="false">
                         </div>
                         <div class="statistics-name">
                             <p>Tiles Moved</p>
@@ -103,7 +107,7 @@
                     </div>
                     <div class="statistics-entry">
                         <div class="statistics-category">
-                            <img src="Assets/gold.png">
+                            <img src="Assets/gold.png" draggable="false">
                         </div>
                         <div class="statistics-name">
                             <p>Total Gold Collected</p>
@@ -114,7 +118,7 @@
                     </div>
                     <div class="statistics-entry">
                         <div class="statistics-category">
-                            <img src="Assets/gem.png">
+                            <img src="Assets/gem.png" draggable="false">
                         </div>
                         <div class="statistics-name">
                             <p>Total Gems Collected</p>

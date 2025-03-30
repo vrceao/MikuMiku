@@ -4,8 +4,6 @@
   > Upgrade that costs both gold and gems.
   > Maybe try combining Time Limit and Extra Time into one element.
 
-  > Start menu
-  > Speedrun mode; Collect X apples in a period of time.
   > Music Library; You can unlock different Miku songs that play in the background and switch between them.
 */
 //! Update Displays
@@ -947,14 +945,19 @@ function drawApple() {
     console.log("Next apple position: " + appleX / snakeHeadSize + ", " + appleY / snakeHeadSize)
 }
 
-function notification(text, subtext, length) {
-    const notificationSound = new Audio("Audio/notification.wav");
-    notificationSound.volume = 0.25 * volumeValue;
-    notificationSound.play();
-
+function notification(text, subtext, length, volume) {
     if (length == undefined) {
         length = 2500;
     }
+    
+    if (volume == undefined) {
+        volume = 0.25 * volumeValue;
+    }
+
+    const notificationSound = new Audio("Audio/notification.wav");
+    notificationSound.volume = 0.25 * volumeValue * volume;
+    notificationSound.play();
+
     notificationContentDisplay[0].textContent = text;
     notificationContentDisplay[1].textContent = subtext;
 
@@ -1313,9 +1316,9 @@ function beginDay() {
     }
 
     if (gs.day == 1 && !speedrunMode) {
-        notification("Konichiwa!", "Use WASD/IJKL to move around and collect apples.");
+        notification("Konichiwa!", "Use WASD/IJKL to move around and collect apples.", undefined, 0);
     } else if (gs.day == 2 && !speedrunMode) {
-        notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.");
+        notification("Watch out!", "If you bump into a wall, Miku will take some of your gold.", undefined, 0);
     }
 
     statisticsButton.style.display = "none";
@@ -1432,12 +1435,17 @@ function startGame(mode) {
     if (mode == "speedrun") {
         speedrunMode = true;
         autoSaveButton.style.display = "none";
+        document.getElementById("top-screen-message").style.display = "block";
+        document.getElementById("top-screen-message").textContent = "Speedrun Mode";
         beginDay();
     }
 }
 
 function loadGame() {
     objectsToLoad = JSON.parse(localStorage.getItem("gameSave") || {})
+    if (objectsToLoad == undefined) {
+        notification("No save file found!", "There's no data saved within your browser to load.");
+    }
     for (const key of Object.keys(objectsToLoad)) gs[key] = objectsToLoad[key];
     gs.day--;
     nextDay();
@@ -1460,15 +1468,15 @@ function autoSave() {
         controlButtonSound.play();
         autoSaveButton.style.background = "#601818";
         autoSaveButton.style.border = "4px solid #b03030";
-        notification("Auto Saving Disabled!", "", 300);
+        notification("Auto Saving Disabled!", "", 300, 0);
     } else {
         autoSaving = true;
-        const controlButtonSound = new Audio("Audio/control_button_off.wav");
+        const controlButtonSound = new Audio("Audio/control_button_on.wav");
         controlButtonSound.volume = volumeValue;
         controlButtonSound.play();
         autoSaveButton.style.background = "#206018";
         autoSaveButton.style.border = "4px solid #40b030";
-        notification("Auto Saving Enabled!", "", 300);
+        notification("Auto Saving Enabled!", "", 300, 0);
     }
 }
 
