@@ -123,7 +123,7 @@ let gs = {
     mikuAsleep: false,
     sleepValue: "Awake",
     bonusGemsValue: 0,
-    multiplyGemValue: 0,
+    multiplyGemValue: 1,
     // Upgrade Prices
     bonusGoldUpgradePrice: 12,
     multiplyGoldUpgradePrice: 18,
@@ -1039,7 +1039,7 @@ function checkForApple() {
 
             gs.statApplesCollectedValue++;
 
-            updateDisplays()
+            updateDisplays();
         }
     }
 }
