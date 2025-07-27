@@ -112,6 +112,11 @@ img {
     user-select: none;
 }
 
+button {
+    background: #00000080;
+    border: none;
+}
+
 #shop, #day {
     position: absolute;
     z-index: 5;
@@ -126,14 +131,11 @@ img {
     flex-direction: row;
 }
 
-#main-background {
-    width: 80%;
-    opacity: 30%;
-}
-
-#main-panel-background {
-    width: 20%;
-    opacity: 30%;
+.menu {
+    background-image: url('Assets/background.png');
+    background-size:cover;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-blend-mode: darken;
 }
 
 #top-screen-message {
@@ -344,10 +346,11 @@ img {
 /*! Sidebar */
 
 .right-side {
-    width: 20%;
-    height: 100%;
-
-    border-left: 2px solid #062831;
+    width: calc(20% - 16px);
+    height: calc(100% - 16px);
+    margin: 8px;
+    background: #00000080;
+    border-radius: 16px;
 }
 
 .right-side > div {
@@ -470,8 +473,6 @@ img {
     width: 80%;
     height: 100%;
 
-    border-right: 2px solid #062831;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -484,9 +485,11 @@ img {
 .tile {
     width: 640px;
     height: 256px;
-    background: #32323280;
-    border: 8px solid #202020;
-    border-radius: 10px;
+    padding: 8px;
+    padding-bottom: 16px;
+
+    background: #00000080;
+    border-radius: 12px;
 
     display: flex;
     flex-direction: row;
@@ -497,6 +500,7 @@ img {
     height: 100%;
 
     border: 4px solid #ffeb5c;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -510,14 +514,11 @@ img {
 .tile-details {
     width: 60%;
     height: 100%;
-    border-left: 5px solid #202020;
 }
 
 .tile-title {
     width: 100%;
     height: 20%;
-
-    border-bottom: 5px solid #202020;
 
     display: flex;
     flex-direction: row;
@@ -601,8 +602,6 @@ img {
 .upgrade-buttons > button {
     height: 64px;
 
-    background: #282828;
-    border: 4px solid #202020;
     border-radius: 8px;
     font-size: 32px;
     font-weight: bold;
@@ -611,7 +610,7 @@ img {
 }
 
 .upgrade-buttons > button:hover, .upgrade-details button:hover {
-    background: #363636;
+    background: #323232;
     cursor: pointer;
 }
 
